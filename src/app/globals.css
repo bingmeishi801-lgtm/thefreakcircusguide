@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Chakra+Petch:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Russo One', sans-serif;
+  --font-body: 'Chakra Petch', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --color-bg: #0A0A0F;
+  --color-card: #12121A;
+  --color-border: #1E1E2A;
+  --color-cyan: #00F0FF;
+  --color-red: #FF3E3E;
+  --color-text: #E8ECF0;
+  --color-muted: #8A8F98;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display { font-family: var(--font-display); }
+.font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Scanline overlay */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 240, 255, 0.015) 2px,
+    rgba(0, 240, 255, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* HUD decorative ID */
+.hud-id {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-muted);
+  letter-spacing: 0.1em;
+}
+
+/* Glow border on hover */
+.glow-border {
+  border: 1px solid var(--color-border);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.glow-border:hover {
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+/* CTA button styles */
+.cta-red {
+  background: var(--color-red);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: box-shadow 0.3s;
+}
+.cta-red:hover {
+  box-shadow: 0 0 20px rgba(255, 62, 62, 0.4);
+}
+
+.cta-cyan {
+  background: transparent;
+  color: white;
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: 1px solid var(--color-cyan);
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: box-shadow 0.3s, background 0.3s;
+}
+.cta-cyan:hover {
+  background: rgba(0, 240, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+/* Corner brackets for HUD frames */
+.hud-frame {
+  position: relative;
+}
+.hud-frame::before,
+.hud-frame::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--color-cyan);
+}
+.hud-frame::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+.hud-frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+/* FAQ accordion */
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.faq-answer.open { max-height: 200px; }
+.faq-icon { transition: transform 0.3s; }
