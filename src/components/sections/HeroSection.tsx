@@ -1,6 +1,27 @@
+"use client";
+import { useEffect, useState } from "react";
 import { Gamepad2, Search } from "lucide-react";
 
+function useStats() {
+  const [stats, setStats] = useState({ characters: 0, routes: 0, endings: 0 });
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/characters").then((r) => r.json() as Promise<{ data: unknown[] }>).catch(() => ({ data: [] })),
+      fetch("/api/routes").then((r) => r.json() as Promise<{ data: unknown[] }>).catch(() => ({ data: [] })),
+      fetch("/api/endings").then((r) => r.json() as Promise<{ data: unknown[] }>).catch(() => ({ data: [] })),
+    ]).then(([c, r, e]) => {
+      setStats({
+        characters: c.data?.length || 0,
+        routes: r.data?.length || 0,
+        endings: e.data?.length || 0,
+      });
+    });
+  }, []);
+  return stats;
+}
+
 export function HeroSection() {
+  const stats = useStats();
   return (
     <section id="hero" className="pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-10 items-center">
@@ -11,7 +32,7 @@ export function HeroSection() {
             Stop Guessing.<br />Find Every Ending.
           </h1>
           <p className="font-body text-base text-[#8A8F98] mb-8 max-w-lg">
-            Step-by-step guides for all 10 characters and 50 endings in The Freak Circus. Play the game and read the guide on the same page.
+            Step-by-step guides for all {stats.characters || "5"} characters and {stats.endings || "13"} endings in The Freak Circus. Play the game and read the guide on the same page.
           </p>
           <div className="flex flex-wrap gap-4 mb-6">
             <a href="#characters" className="cta-red">Browse Character Guides &mdash; Free</a>
@@ -34,15 +55,15 @@ export function HeroSection() {
         </div>
 
         {/* Right: Game Container */}
-        <div className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-lg p-1 relative min-h-[360px]">
-          <span className="hud-id absolute top-2 right-3">VIGILANCE_CONTAINER.01</span>
-          <div className="flex flex-col items-center justify-center h-full min-h-[340px] gap-4">
-            <Gamepad2 size={48} style={{ color: "#00F0FF" }} />
-            <p className="font-display text-sm uppercase tracking-widest" style={{ color: "#00F0FF" }}>
-              Game Player Offline
-            </p>
-            <a href="#play" className="cta-cyan text-xs mt-2">Load Game</a>
-          </div>
+        <div id="play" className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-lg p-1 relative min-h-[360px]">
+          <span className="hud-id absolute top-2 right-3 z-10">VIGILANCE_CONTAINER.01</span>
+          <iframe
+            src="https://html-classic.itch.zone/html/14081436/index.html"
+            className="w-full rounded-lg"
+            style={{ minHeight: "480px", border: "none" }}
+            title="The Freak Circus — Play Now"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
