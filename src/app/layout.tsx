@@ -21,8 +21,19 @@ export const metadata: Metadata = {
     url: "https://thefreakcircusguide.com",
     siteName: "The Freak Circus Guide",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "The Freak Circus Complete Guide — 5 characters, 13 endings",
+      },
+    ],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-image.png"],
+  },
   metadataBase: new URL("https://thefreakcircusguide.com"),
 };
 
