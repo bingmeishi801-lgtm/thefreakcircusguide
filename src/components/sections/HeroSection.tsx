@@ -1,6 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Gamepad2, Search } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { Gamepad2, Search, X } from "lucide-react";
+
+interface Character {
+  id: number;
+  name: string;
+  slug: string;
+  role: string;
+  personality: string;
+}
 
 function useStats() {
   const [stats, setStats] = useState({ characters: 0, routes: 0, endings: 0 });
@@ -22,6 +30,46 @@ function useStats() {
 
 export function HeroSection() {
   const stats = useStats();
+  const [query, setQuery] = useState("");
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [results, setResults] = useState<Character[]>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch("/api/characters")
+      .then((r) => r.json() as Promise<{ data: Character[] }>)
+      .then((d) => setCharacters(d.data || []))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setResults([]);
+      setShowDropdown(false);
+      return;
+    }
+    const q = query.toLowerCase();
+    const matched = characters.filter(
+      (c) =>
+        c.name.toLowerCase().includes(q) ||
+        c.role.toLowerCase().includes(q) ||
+        c.personality.toLowerCase().includes(q)
+    );
+    setResults(matched);
+    setShowDropdown(matched.length > 0);
+  }, [query, characters]);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <section id="hero" className="pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-10 items-center">
@@ -39,13 +87,43 @@ export function HeroSection() {
             <a href="#play" className="cta-cyan">Play The Freak Circus Now</a>
           </div>
           <div className="flex items-center gap-4 mb-8">
-            <div className="flex-1 max-w-sm relative">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A8F98]" />
+            <div className="flex-1 max-w-sm relative" ref={wrapperRef}>
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A8F98] z-10 pointer-events-none" />
               <input
                 type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onFocus={() => results.length > 0 && setShowDropdown(true)}
                 placeholder="Search characters, routes, endings..."
-                className="w-full bg-[#12121A] border border-[#1E1E2A] rounded pl-9 pr-4 py-2.5 text-sm text-[#E8ECF0] placeholder-[#8A8F98] focus:border-[#00F0FF] focus:outline-none transition-colors"
+                className="w-full bg-[#12121A] border border-[#1E1E2A] rounded pl-9 pr-9 py-2.5 text-sm text-[#E8ECF0] placeholder-[#8A8F98] focus:border-[#00F0FF] focus:outline-none transition-colors"
               />
+              {query && (
+                <button
+                  onClick={() => { setQuery(""); setShowDropdown(false); }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A8F98] hover:text-[#E8ECF0]"
+                >
+                  <X size={14} />
+                </button>
+              )}
+              {showDropdown && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-[#12121A] border border-[#1E1E2A] rounded-lg overflow-hidden shadow-xl z-50 max-h-64 overflow-y-auto">
+                  {results.map((c) => (
+                    <a
+                      key={c.id}
+                      href={`/characters/${c.slug}`}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#1E1E2A] transition-colors border-b border-[#1E1E2A] last:border-b-0"
+                    >
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-[#00F0FF] bg-[#00F0FF]/10 px-1.5 py-0.5 rounded">
+                        {c.role}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-body text-sm text-[#E8ECF0] truncate">{c.name}</p>
+                        <p className="font-body text-xs text-[#8A8F98] truncate">{c.personality}</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <p className="font-body text-xs text-[#8A8F98] flex items-center gap-2">
