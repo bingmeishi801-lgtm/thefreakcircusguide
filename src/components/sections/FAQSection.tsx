@@ -8,18 +8,19 @@ interface FAQItem {
   answer: string;
 }
 
-export function FAQSection() {
-  const [faq, setFaq] = useState<FAQItem[]>([]);
-  const [loading, setLoading] = useState(true);
+export function FAQSection({ initialData }: { initialData?: FAQItem[] }) {
+  const [faq, setFaq] = useState<FAQItem[]>(initialData || []);
+  const [loading, setLoading] = useState(!initialData);
   const [open, setOpen] = useState<number | null>(0);
 
   useEffect(() => {
+    if (initialData) return;
     fetch("/api/faq")
       .then((r) => r.json() as Promise<{ data: FAQItem[] }>)
       .then((d) => setFaq(d.data || []))
       .catch(() => setFaq([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [initialData]);
 
   return (
     <section id="faq" className="py-20 px-4 sm:px-6">

@@ -12,17 +12,18 @@ interface Character {
   icon: string;
 }
 
-export function CharactersSection() {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [loading, setLoading] = useState(true);
+export function CharactersSection({ initialData }: { initialData?: Character[] }) {
+  const [characters, setCharacters] = useState<Character[]>(initialData || []);
+  const [loading, setLoading] = useState(!initialData);
 
   useEffect(() => {
+    if (initialData) return;
     fetch("/api/characters")
       .then((r) => r.json() as Promise<{ data: Character[] }>)
       .then((d) => setCharacters(d.data || []))
       .catch(() => setCharacters([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [initialData]);
 
   return (
     <section id="characters" className="py-20 px-4 sm:px-6">
