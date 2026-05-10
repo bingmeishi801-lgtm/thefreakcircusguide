@@ -58,7 +58,7 @@ export function HeroSection() {
         <div id="play" className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-lg p-1 relative min-h-[360px]">
           <span className="hud-id absolute top-2 right-3 z-10">VIGILANCE_CONTAINER.01</span>
           <iframe
-            src="https://html-classic.itch.zone/html/14081436/index.html"
+            src="https://html-classic.itch.zone/html/16572088/index.html"
             className="w-full rounded-lg"
             style={{ minHeight: "480px", border: "none" }}
             title="The Freak Circus — Play Now"
