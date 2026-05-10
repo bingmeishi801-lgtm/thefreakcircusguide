@@ -8,7 +8,7 @@ export function CTASection() {
         <p className="font-body text-base text-[#8A8F98] mb-8">
           Every route. Every choice. Every ending. Mapped out so you don&apos;t waste hours replaying blind.
         </p>
-        <a href="#characters" className="cta-red inline-block">Browse All 50 Endings &mdash; Free</a>
+        <a href="#characters" className="cta-red inline-block">Browse All 13 Endings &mdash; Free</a>
       </div>
     </section>
   );

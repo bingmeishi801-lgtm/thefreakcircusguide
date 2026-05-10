@@ -4,9 +4,9 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "The Freak Circus Guide — All 50 Endings, No Spoilers",
+  title: "The Freak Circus Guide — All 13 Endings, No Spoilers",
   description:
-    "Play The Freak Circus and read the guide in the same place. Step-by-step routes for all 10 characters and 50 endings. Spoiler controls. Free, no signup.",
+    "Play The Freak Circus and read the guide in the same place. Step-by-step routes for all 5 characters and 13 endings. Spoiler controls. Free, no signup.",
   keywords: [
     "the freak circus guide",
     "the freak circus endings",
@@ -15,9 +15,9 @@ export const metadata: Metadata = {
     "visual novel guide",
   ],
   openGraph: {
-    title: "The Freak Circus Guide — All 50 Endings, No Spoilers",
+    title: "The Freak Circus Guide — All 13 Endings, No Spoilers",
     description:
-      "Play and read the guide in the same place. 10 characters, 50 endings, spoiler controls.",
+      "Play and read the guide in the same place. 5 characters, 13 endings, spoiler controls.",
     url: "https://thefreakcircusguide.com",
     siteName: "The Freak Circus Guide",
     type: "website",

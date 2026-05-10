@@ -2,7 +2,7 @@ import { Gamepad2, GitBranch, EyeOff, Flag, ListOrdered, Smartphone } from "luci
 
 const FEATURES = [
   { icon: Gamepad2, title: "Online Play", desc: "Play in browser. Same window as the guide." },
-  { icon: GitBranch, title: "50 Ending Maps", desc: "Every branch marked. Bad endings flagged." },
+  { icon: GitBranch, title: "13 Ending Maps", desc: "Every branch marked. Bad endings flagged." },
   { icon: EyeOff, title: "Spoiler Controls", desc: "Hidden by default. Click to reveal." },
   { icon: Flag, title: "Save Point Markers", desc: "Know where to save. One playthrough, multiple endings." },
   { icon: ListOrdered, title: "Play Order Guide", desc: "Difficulty ratings. Start smart." },
