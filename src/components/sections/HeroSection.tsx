@@ -48,17 +48,20 @@ export function HeroSection() {
   useEffect(() => {
     if (!query) {
       setResults([]);
+      setShowDropdown(false);
+      window.dispatchEvent(new CustomEvent("hero-search", { detail: "" }));
       return;
     }
     const q = query.toLowerCase();
-    setResults(
-      characters.filter(
-        (c) =>
-          c.name.toLowerCase().includes(q) ||
-          c.role.toLowerCase().includes(q) ||
-          c.personality.toLowerCase().includes(q)
-      )
+    const filtered = characters.filter(
+      (c) =>
+        c.name.toLowerCase().includes(q) ||
+        c.role.toLowerCase().includes(q) ||
+        c.personality.toLowerCase().includes(q)
     );
+    setResults(filtered);
+    setShowDropdown(true);
+    window.dispatchEvent(new CustomEvent("hero-search", { detail: q }));
   }, [query, characters]);
 
   const toggleFullscreen = useCallback(() => {
@@ -184,7 +187,6 @@ export function HeroSection() {
 
           {/* Right: Game Container */}
           <div id="play" ref={gameContainerRef} className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-lg p-1 relative min-h-[360px]">
-            <span className="hud-id absolute top-2 right-3 z-10">VIGILANCE_CONTAINER.01</span>
             <button
               onClick={toggleFullscreen}
               className="absolute top-2 left-3 z-10 bg-black/60 hover:bg-[#00F0FF]/20 border border-[#1E1E2A] hover:border-[#00F0FF]/40 rounded p-1.5 transition-all cursor-pointer"

@@ -11,7 +11,7 @@ interface FAQItem {
 export function FAQSection({ initialData }: { initialData?: FAQItem[] }) {
   const [faq, setFaq] = useState<FAQItem[]>(initialData || []);
   const [loading, setLoading] = useState(!initialData);
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   useEffect(() => {
     if (initialData) return;
