@@ -150,6 +150,22 @@ export function CharacterPageClient({
       </div>
 
       <div className="max-w-[1000px] mx-auto px-4 sm:px-6 -mt-4 relative z-10">
+        {/* Version status banner */}
+        <div className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-xl p-4 mb-6">
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="font-mono text-[11px] uppercase tracking-wider px-2.5 py-1 rounded border" style={{
+              color: totalCount > 0 ? '#00F0FF' : '#FFB800',
+              borderColor: totalCount > 0 ? '#00F0FF40' : '#FFB80040',
+              background: totalCount > 0 ? 'rgba(0, 240, 255, 0.08)' : 'rgba(255, 184, 0, 0.08)',
+            }}>
+              {totalCount > 0 ? `v0.2 — ${totalCount} confirmed ending${totalCount > 1 ? 's' : ''}` : 'v0.2 — Ending not yet confirmed'}
+            </span>
+            <span className="font-mono text-[10px] text-[#8A8F98]">
+              Route available • Updated for current build
+            </span>
+          </div>
+        </div>
+
         {/* Character info card with progress */}
         <div className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-xl p-6 mb-8">
           <p className="font-body text-base text-[#8A8F98] mb-4">
@@ -321,6 +337,41 @@ export function CharacterPageClient({
             })}
           </div>
         </section>
+
+        {/* What to Expect — for characters without confirmed endings */}
+        {totalCount === 0 && (
+          <section className="mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <Star size={20} style={{ color: '#FFB800' }} />
+              <h2 className="font-display text-xl sm:text-2xl text-[#E8ECF0]">
+                What to Expect
+              </h2>
+            </div>
+            <div className="glow-border bg-[#12121A] rounded-xl p-6">
+              <p className="font-body text-sm text-[#8A8F98] mb-4">
+                This route is available in v0.2 but no ending has been confirmed yet. Based on early gameplay, here's what to watch for:
+              </p>
+              <ul className="space-y-2">
+                {routes.map((route) => {
+                  // Extract key decision points from summary
+                  const sentences = route.summary.split('. ');
+                  const keyPoints = sentences.filter(s =>
+                    s.includes('Key scenes') || s.includes('critical') || s.includes('appears to be') || s.includes('whether')
+                  );
+                  return keyPoints.map((point, i) => (
+                    <li key={`${route.id}-${i}`} className="flex items-start gap-2">
+                      <span className="text-[#FFB800] mt-1">▸</span>
+                      <span className="font-body text-sm text-[#8A8F98]">{point.trim()}.</span>
+                    </li>
+                  ));
+                })}
+              </ul>
+              <p className="font-mono text-[10px] text-[#8A8F98] mt-4 pt-3 border-t border-[#1E1E2A]">
+                Bookmark this page — we update character guides as new endings are discovered.
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* Recommended next characters */}
         {allCharacters && allCharacters.length > 1 && (
