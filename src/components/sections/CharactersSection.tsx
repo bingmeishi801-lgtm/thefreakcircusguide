@@ -31,7 +31,6 @@ const CHARACTER_ICONS: Record<string, typeof Skull> = {
 export function CharactersSection({ initialData }: { initialData?: Character[] }) {
   const [characters, setCharacters] = useState<Character[]>(initialData || []);
   const [loading, setLoading] = useState(!initialData);
-  const [searchActive, setSearchActive] = useState(false);
 
   useEffect(() => {
     if (initialData) return;
@@ -42,15 +41,6 @@ export function CharactersSection({ initialData }: { initialData?: Character[] }
       .finally(() => setLoading(false));
   }, [initialData]);
 
-  useEffect(() => {
-    const handler = (e: Event) => {
-      const q = (e as CustomEvent).detail || "";
-      setSearchActive(q.length > 0);
-    };
-    window.addEventListener("hero-search", handler);
-    return () => window.removeEventListener("hero-search", handler);
-  }, []);
-
   return (
     <section id="characters" className="py-20 px-4 sm:px-6">
       <div className="max-w-[1200px] mx-auto">
@@ -59,7 +49,7 @@ export function CharactersSection({ initialData }: { initialData?: Character[] }
           {loading ? "Loading characters..." : `${characters.length} characters. Each with unique routes and endings.`}
         </p>
 
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ${searchActive ? "hidden" : ""}`}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="glow-border bg-[#12121A] rounded-xl p-6 min-h-[180px] animate-pulse">
