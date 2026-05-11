@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { Gamepad2, Search, X, ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
+import { Gamepad2, Search, X, Maximize2, Minimize2 } from "lucide-react";
 
 interface Character {
   id: number;
@@ -28,15 +28,7 @@ function useStats() {
   return stats;
 }
 
-const GAME_SCREENSHOTS = [
-  { src: "/images/game/hero.png", alt: "The Freak Circus — Game Art" },
-  { src: "/images/game/ss1.png", alt: "The Freak Circus — Gameplay Screenshot 1" },
-  { src: "/images/game/ss2.png", alt: "The Freak Circus — Gameplay Screenshot 2" },
-  { src: "/images/game/ss3.png", alt: "The Freak Circus — Gameplay Screenshot 3" },
-  { src: "/images/game/ss4.jpg", alt: "The Freak Circus — Gameplay Screenshot 4" },
-  { src: "/images/game/ss5.jpg", alt: "The Freak Circus — Gameplay Screenshot 5" },
-  { src: "/images/game/ss6.jpg", alt: "The Freak Circus — Gameplay Screenshot 6" },
-];
+const HERO_BG = "/images/game/hero.png";
 
 export function HeroSection() {
   const stats = useStats();
@@ -44,7 +36,6 @@ export function HeroSection() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [results, setResults] = useState<Character[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const gameContainerRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -98,67 +89,20 @@ export function HeroSection() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Auto-advance carousel
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % GAME_SCREENSHOTS.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % GAME_SCREENSHOTS.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + GAME_SCREENSHOTS.length) % GAME_SCREENSHOTS.length);
-
   return (
     <section id="hero" className="pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-[1200px] mx-auto">
         {/* Game Art Hero Banner */}
         <div className="relative rounded-xl overflow-hidden mb-10 border border-[#1E1E2A]">
           <div className="relative h-[300px] sm:h-[400px] md:h-[500px]">
-            {GAME_SCREENSHOTS.map((img, i) => (
-              <div
-                key={i}
-                className="absolute inset-0 transition-opacity duration-700"
-                style={{ opacity: i === currentSlide ? 1 : 0 }}
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="w-full h-full object-cover"
-                  loading={i === 0 ? "eager" : "lazy"}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#12121A] via-transparent to-transparent" />
-              </div>
-            ))}
-            
-            {/* Carousel controls */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#12121A]/80 border border-[#1E1E2A] flex items-center justify-center text-[#8A8F98] hover:text-[#00F0FF] hover:border-[#00F0FF]/30 transition-colors z-10"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#12121A]/80 border border-[#1E1E2A] flex items-center justify-center text-[#8A8F98] hover:text-[#00F0FF] hover:border-[#00F0FF]/30 transition-colors z-10"
-            >
-              <ChevronRight size={20} />
-            </button>
-            
-            {/* Slide indicators */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-              {GAME_SCREENSHOTS.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    i === currentSlide
-                      ? "bg-[#00F0FF] w-6"
-                      : "bg-[#8A8F98]/50 hover:bg-[#8A8F98]"
-                  }`}
-                />
-              ))}
-            </div>
+            {/* Static hero background */}
+            <img
+              src={HERO_BG}
+              alt="The Freak Circus — Game Art"
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#12121A] via-transparent to-transparent" />
 
             {/* Overlay text */}
             <div className="absolute bottom-6 left-6 right-6 z-10">

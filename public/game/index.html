@@ -227,8 +227,25 @@
       }
   </script>
   <script>
-      // No XHR intercept needed - the game's relative 'game/...' URLs
-      // are proxied to itch.zone by our Next.js route handler at /game/game/[...path]
+      // XHR interceptor: rewrite relative game asset URLs to absolute proxy URLs
+      // The Ren'Py webloader makes XHR to 'game/images/...' (relative)
+      // We rewrite to '/game/game/images/...' (absolute) so it hits our proxy route
+      (function() {
+          var origOpen = XMLHttpRequest.prototype.open;
+          XMLHttpRequest.prototype.open = function(method, url, ...args) {
+              if (typeof url === 'string' && url.indexOf('game/') === 0 && url.indexOf('.zip') === -1) {
+                  url = '/game/' + url;
+              }
+              return origOpen.call(this, method, url, ...args);
+          };
+      })();
+
+      // Clear stale service worker caches from previous deployments
+      if ('caches' in window) {
+          caches.keys().then(function(names) {
+              names.forEach(function(name) { caches.delete(name); });
+          });
+      }
   </script>
   <script src="renpy-pre.js"></script>
   <script async type="text/javascript" src="renpy.js"></script>
