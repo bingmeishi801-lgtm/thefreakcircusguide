@@ -112,7 +112,7 @@ export function HeroSection() {
               style={{ textShadow: '0 0 15px rgba(0,240,255,0.3)' }}>
               The Freak Circus — Horror Visual Novel
             </p>
-            <h2 className="font-display text-lg sm:text-xl md:text-2xl text-white"
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-[56px] leading-tight text-white"
               style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9)' }}>
               Enter the Circus. Face Your Fears.
             </h2>
