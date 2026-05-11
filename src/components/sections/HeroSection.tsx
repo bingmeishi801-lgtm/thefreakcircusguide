@@ -92,9 +92,9 @@ export function HeroSection() {
   return (
     <section id="hero" className="pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-[1200px] mx-auto">
-        {/* Game Art Hero Banner */}
-        <div className="relative rounded-xl overflow-hidden mb-10 border border-[#1E1E2A]">
-          <div className="relative h-[300px] sm:h-[400px] md:h-[500px]">
+        {/* Game Art Hero Banner — no border, blends into bg */}
+        <div className="relative overflow-hidden mb-10">
+          <div className="relative h-[400px] sm:h-[500px] md:h-[600px]">
             {/* Static hero background */}
             <img
               src={HERO_BG}
@@ -102,14 +102,15 @@ export function HeroSection() {
               className="w-full h-full object-cover"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#12121A] via-transparent to-transparent" />
-
+            {/* Gradient fades image into the dark page background */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-[#0A0A0F]/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0A0A0F] to-transparent" />
             {/* Overlay text */}
-            <div className="absolute bottom-6 left-6 right-6 z-10">
-              <p className="font-mono text-xs uppercase tracking-widest text-[#00F0FF] mb-2">
+            <div className="absolute bottom-10 left-8 right-8 z-10">
+              <p className="font-mono text-sm uppercase tracking-widest text-[#00F0FF] mb-3">
                 The Freak Circus — Horror Visual Novel
               </p>
-              <h2 className="font-display text-2xl sm:text-3xl text-[#E8ECF0]">
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-[#E8ECF0] drop-shadow-lg">
                 Enter the Circus. Face Your Fears.
               </h2>
             </div>
