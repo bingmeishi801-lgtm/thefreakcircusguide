@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ArrowRight, Skull, Eye, Shield, Wind, Flame } from "lucide-react";
+import { ArrowRight, Skull, Eye, Shield, Wind, Flame, CheckCircle2 } from "lucide-react";
+import { useProgress } from "@/lib/useProgress";
 
 interface Character {
   id: number;
@@ -31,6 +32,7 @@ const CHARACTER_ICONS: Record<string, typeof Skull> = {
 export function CharactersSection({ initialData }: { initialData?: Character[] }) {
   const [characters, setCharacters] = useState<Character[]>(initialData || []);
   const [loading, setLoading] = useState(!initialData);
+  const { progress, ready } = useProgress();
 
   useEffect(() => {
     if (initialData) return;
@@ -93,6 +95,11 @@ export function CharactersSection({ initialData }: { initialData?: Character[] }
                         <span className="inline-block bg-[#1E1E2A] text-[#8A8F98] font-mono text-[11px] uppercase tracking-wider px-2.5 py-1 rounded">
                           {c.role}
                         </span>
+                        {ready && progress.characters[c.slug]?.visited && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-mono text-[#00F0FF] bg-[#00F0FF]/10 px-2 py-0.5 rounded">
+                            <CheckCircle2 size={10} /> visited
+                          </span>
+                        )}
                       </div>
                       
                       <h3 className="font-display text-lg sm:text-xl text-[#E8ECF0] group-hover:text-[#00F0FF] transition-colors">

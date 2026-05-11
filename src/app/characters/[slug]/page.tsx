@@ -104,6 +104,10 @@ export default async function CharacterPage({
 
     routes = (routesResult.results || []) as unknown as Route[];
     endings = (endingsResult.results || []) as unknown as Ending[];
+
+    // Fetch all characters for "Next Up" recommendations
+    const allCharsResult = await db.prepare("SELECT * FROM characters ORDER BY id").all();
+    var allCharacters = (allCharsResult.results || []) as unknown as Character[];
   } catch (e) {
     console.error("Failed to load character data:", e);
     notFound();
@@ -134,6 +138,7 @@ export default async function CharacterPage({
         character={character}
         routes={routes}
         endings={endings}
+        allCharacters={allCharacters}
       />
     </>
   );

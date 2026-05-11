@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ArrowLeft,
   ChevronDown,
@@ -11,7 +11,10 @@ import {
   Star,
   Map,
   BookOpen,
+  CheckCircle2,
+  Circle,
 } from "lucide-react";
+import { useProgress } from "@/lib/useProgress";
 
 interface Character {
   id: number;
@@ -78,16 +81,19 @@ export function CharacterPageClient({
   character,
   routes,
   endings,
+  allCharacters,
 }: {
   character: Character;
   routes: Route[];
   endings: Ending[];
+  allCharacters?: Character[];
 }) {
   const [revealedEndings, setRevealedEndings] = useState<Set<number>>(
     new Set()
   );
+  const { progress, toggleEnding, markVisited, getEndingCount, ready } = useProgress();
 
-  const toggleEnding = (id: number) => {
+  const toggleReveal = (id: number) => {
     setRevealedEndings((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
@@ -96,7 +102,15 @@ export function CharacterPageClient({
     });
   };
 
+  useEffect(() => {
+    markVisited(character.slug);
+  }, [character.slug, markVisited]);
+
   const bgImage = CHARACTER_BACKGROUNDS[character.slug];
+  const endingIds = endings.map((e) => `ending-${e.id}`);
+  const unlockedCount = getEndingCount(endingIds);
+  const totalCount = endings.length;
+  const progressPct = totalCount > 0 ? Math.round((unlockedCount / totalCount) * 100) : 0;
 
   return (
     <div className="min-h-screen pb-16">
@@ -136,16 +150,38 @@ export function CharacterPageClient({
       </div>
 
       <div className="max-w-[1000px] mx-auto px-4 sm:px-6 -mt-4 relative z-10">
-        {/* Character info card */}
+        {/* Character info card with progress */}
         <div className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-xl p-6 mb-8">
           <p className="font-body text-base text-[#8A8F98] mb-4">
             {character.personality}
           </p>
-          <div className="flex items-center gap-2 text-sm font-mono">
+          <div className="flex items-center gap-2 text-sm font-mono mb-4">
             <Swords size={14} style={{ color: "#00F0FF" }} />
             <span className="text-[#8A8F98]">Route hint:</span>
             <span className="text-[#E8ECF0]">{character.route_hint}</span>
           </div>
+
+          {/* Progress bar */}
+          {totalCount > 0 && ready && (
+            <div className="mt-4 pt-4 border-t border-[#1E1E2A]">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-mono text-xs text-[#8A8F98] uppercase tracking-wider">Your Progress</span>
+                <span className="font-mono text-sm" style={{ color: progressPct === 100 ? "#00F0FF" : "#E8ECF0" }}>
+                  {unlockedCount}/{totalCount} endings unlocked
+                  {progressPct === 100 && " ✓"}
+                </span>
+              </div>
+              <div className="w-full h-2 bg-[#1E1E2A] rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${progressPct}%`,
+                    background: progressPct === 100 ? "#00F0FF" : "linear-gradient(90deg, #00F0FF, #FF6B9D)",
+                  }}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Routes */}
@@ -190,7 +226,7 @@ export function CharacterPageClient({
           </div>
         </section>
 
-        {/* Endings */}
+        {/* Endings with progress checkboxes */}
         <section className="mb-10">
           <div className="flex items-center gap-3 mb-2">
             <BookOpen size={20} style={{ color: "#00F0FF" }} />
@@ -199,7 +235,7 @@ export function CharacterPageClient({
             </h2>
           </div>
           <p className="font-body text-sm text-[#8A8F98] mb-6">
-            Click to reveal spoiler details.
+            Click the eye to reveal spoilers. Check the circle to mark as unlocked.
           </p>
 
           <div className="space-y-3">
@@ -211,44 +247,62 @@ export function CharacterPageClient({
               };
               const Icon = style.icon;
               const isRevealed = revealedEndings.has(ending.id);
+              const endingKey = `ending-${ending.id}`;
+              const isUnlocked = ready && !!progress.endings[endingKey];
 
               return (
                 <div
                   key={ending.id}
                   className="bg-[#12121A] border border-[#1E1E2A] rounded-xl overflow-hidden transition-all"
+                  style={isUnlocked ? { borderColor: `${style.color}40` } : undefined}
                 >
-                  {/* Header — always visible */}
-                  <button
-                    onClick={() => toggleEnding(ending.id)}
-                    aria-expanded={isRevealed}
-                    aria-controls={`ending-${ending.id}`}
-                    className="w-full flex items-center gap-3 p-4 text-left hover:bg-[#1E1E2A]/30 transition-colors"
-                  >
-                    <Icon size={18} style={{ color: style.color }} />
-                    <div className="flex-1 min-w-0">
-                      <span className="font-display text-sm text-[#E8ECF0] block">
-                        {ending.name}
-                      </span>
-                      <span
-                        className="font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded inline-block mt-1"
-                        style={{
-                          color: style.color,
-                          background: `${style.color}15`,
-                        }}
-                      >
-                        {style.label}
-                      </span>
-                    </div>
-                    {isRevealed ? (
-                      <ChevronUp size={16} className="text-[#8A8F98]" />
-                    ) : (
-                      <ChevronDown size={16} className="text-[#8A8F98]" />
-                    )}
-                  </button>
+                  <div className="flex items-center gap-2 p-4">
+                    {/* Progress checkbox */}
+                    <button
+                      onClick={() => toggleEnding(endingKey)}
+                      className="flex-shrink-0 p-1 rounded transition-colors hover:bg-[#1E1E2A]"
+                      title={isUnlocked ? "Mark as not unlocked" : "Mark as unlocked"}
+                      aria-label={isUnlocked ? "Mark as not unlocked" : "Mark as unlocked"}
+                    >
+                      {isUnlocked ? (
+                        <CheckCircle2 size={20} style={{ color: style.color }} />
+                      ) : (
+                        <Circle size={20} className="text-[#3A3A4A]" />
+                      )}
+                    </button>
 
-                  {/* Spoiler content */}
+                    {/* Reveal toggle */}
+                    <button
+                      onClick={() => toggleReveal(ending.id)}
+                      aria-expanded={isRevealed}
+                      aria-controls={`ending-${ending.id}`}
+                      className="flex-1 flex items-center gap-3 text-left hover:bg-[#1E1E2A]/30 transition-colors rounded p-1"
+                    >
+                      <Icon size={18} style={{ color: style.color }} />
+                      <div className="flex-1 min-w-0">
+                        <span className={`font-display text-sm block ${isUnlocked ? 'text-[#E8ECF0]' : 'text-[#8A8F98]'}`}>
+                          {ending.name}
+                        </span>
+                        <span
+                          className="font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded inline-block mt-1"
+                          style={{
+                            color: style.color,
+                            background: `${style.color}15`,
+                          }}
+                        >
+                          {style.label}
+                        </span>
+                      </div>
+                      {isRevealed ? (
+                        <ChevronUp size={16} className="text-[#8A8F98]" />
+                      ) : (
+                        <ChevronDown size={16} className="text-[#8A8F98]" />
+                      )}
+                    </button>
+                  </div>
+
                   {isRevealed && (
-                    <div id={`ending-${ending.id}`} className="px-4 pb-4 border-t border-[#1E1E2A] pt-3" role="region" aria-labelledby={`ending-btn-${ending.id}`}>
+                    <div id={`ending-${ending.id}`} className="px-4 pb-4 pl-12 border-t border-[#1E1E2A] pt-3" role="region">
                       <p className="font-body text-sm text-[#8A8F98] mb-3">
                         {ending.description}
                       </p>
@@ -267,6 +321,36 @@ export function CharacterPageClient({
             })}
           </div>
         </section>
+
+        {/* Recommended next characters */}
+        {allCharacters && allCharacters.length > 1 && (
+          <section className="mb-10">
+            <h3 className="font-display text-lg text-[#E8ECF0] mb-4">Next Up</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {allCharacters
+                .filter((c) => c.slug !== character.slug)
+                .slice(0, 2)
+                .map((c) => (
+                  <a
+                    key={c.id}
+                    href={`/characters/${c.slug}`}
+                    className="glow-border bg-[#12121A] rounded-xl p-4 flex items-center gap-3 hover:border-[#00F0FF]/30 transition-all group"
+                  >
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#1E1E2A]">
+                      <span className="text-lg">{CHARACTER_EMOJIS[c.icon] || "🎭"}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="font-display text-sm text-[#E8ECF0] group-hover:text-[#00F0FF] transition-colors block">
+                        {c.name}
+                      </span>
+                      <span className="font-mono text-[10px] text-[#8A8F98] uppercase">{c.role}</span>
+                    </div>
+                    <span className="font-mono text-[10px] text-[#8A8F98]">→</span>
+                  </a>
+                ))}
+            </div>
+          </section>
+        )}
 
         {/* Back to all characters */}
         <div className="text-center">
