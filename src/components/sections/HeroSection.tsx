@@ -105,16 +105,18 @@ export function HeroSection() {
             linear-gradient(to left, #0A0A0F 0%, transparent 18%)
           `
         }} />
-        {/* Overlay text — small, tucked at very bottom, minimal coverage */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-16 pb-6">
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#00F0FF] mb-1"
-            style={{ textShadow: '0 0 15px rgba(0,240,255,0.3)' }}>
-            The Freak Circus — Horror Visual Novel
-          </p>
-          <h2 className="font-display text-lg sm:text-xl md:text-2xl text-white"
-            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9)' }}>
-            Enter the Circus. Face Your Fears.
-          </h2>
+        {/* Overlay text — small, tucked at very bottom, aligned with content below */}
+        <div className="absolute bottom-0 left-0 right-0 z-10">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 pb-6">
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#00F0FF] mb-1"
+              style={{ textShadow: '0 0 15px rgba(0,240,255,0.3)' }}>
+              The Freak Circus — Horror Visual Novel
+            </p>
+            <h2 className="font-display text-lg sm:text-xl md:text-2xl text-white"
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.9)' }}>
+              Enter the Circus. Face Your Fears.
+            </h2>
+          </div>
         </div>
       </div>
 
