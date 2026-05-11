@@ -1,9 +1,9 @@
 import { User, Map, Trophy } from "lucide-react";
 
 const STEPS = [
-  { num: "01", icon: User, title: "Pick a Character", desc: "Choose from 5 characters. Each has multiple endings." },
-  { num: "02", icon: Map, title: "Follow the Route", desc: "Walk through each choice with save points marked. Bad endings flagged." },
-  { num: "03", icon: Trophy, title: "Unlock Every Ending", desc: "See every ending per character. Collect all 13. Done." },
+  { num: "01", icon: User, title: "Pick a Character", desc: "Choose from 5 characters. Each has a unique route and endings." },
+  { num: "02", icon: Map, title: "Read the Guide", desc: "Route hints and ending details. Spoilers hidden until you click." },
+  { num: "03", icon: Trophy, title: "Track Your Progress", desc: "See which endings you've unlocked. Discover new ones as the game updates." },
 ];
 
 export function HowItWorksSection() {

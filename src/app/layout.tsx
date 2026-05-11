@@ -4,20 +4,21 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "The Freak Circus Guide — All 13 Endings, No Spoilers",
+  title: "The Freak Circus Guide — Characters, Endings & Walkthrough",
   description:
-    "Play The Freak Circus and read the guide in the same place. Step-by-step routes for all 5 characters and 13 endings. Spoiler controls. Free, no signup.",
+    "Fan-made guide for The Freak Circus by Garula. Character routes, endings, and tips for the horror visual novel. Updated as the game develops.",
   keywords: [
     "the freak circus guide",
     "the freak circus endings",
     "the freak circus characters",
     "the freak circus walkthrough",
     "visual novel guide",
+    "garula",
   ],
   openGraph: {
-    title: "The Freak Circus Guide — All 13 Endings, No Spoilers",
+    title: "The Freak Circus Guide — Characters, Endings & Walkthrough",
     description:
-      "Play and read the guide in the same place. 5 characters, 13 endings, spoiler controls.",
+      "Fan-made guide for The Freak Circus. Character routes, endings, and tips. Updated as the game develops.",
     url: "https://thefreakcircusguide.com",
     siteName: "The Freak Circus Guide",
     type: "website",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "The Freak Circus Complete Guide — 5 characters, 13 endings",
+        alt: "The Freak Circus Guide — Fan-made walkthrough for the horror visual novel",
       },
     ],
   },

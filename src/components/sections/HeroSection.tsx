@@ -130,10 +130,10 @@ export function HeroSection() {
           <div>
             <p className="font-mono text-xs uppercase tracking-widest text-[#8A8F98] mb-4">Unofficial Fan Guide</p>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] leading-tight text-[#E8ECF0] mb-5">
-              Stop Guessing.<br />Find Every Ending.
+              Your Fan Guide to<br />The Freak Circus
             </h1>
             <p className="font-body text-base text-[#8A8F98] mb-8 max-w-lg">
-              Step-by-step guides for all {stats.characters || "5"} characters and {stats.endings || "13"} endings in The Freak Circus. Play the game and read the guide on the same page.
+              Character profiles, route hints, and ending guides for The Freak Circus by Garula. Updated as the game develops — currently covering all 5 characters.
             </p>
             <div className="flex flex-wrap gap-4 mb-6">
               <a href="#characters" className="cta-red">Browse Character Guides &mdash; Free</a>
