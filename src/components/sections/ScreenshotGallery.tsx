@@ -6,9 +6,9 @@ const SCREENSHOTS = [
   { src: "/images/game/ss1.png", alt: "The Freak Circus — Character Scene 1" },
   { src: "/images/game/ss2.png", alt: "The Freak Circus — Character Scene 2" },
   { src: "/images/game/ss3.png", alt: "The Freak Circus — Character Scene 3" },
-  { src: "/images/game/ss4.jpg", alt: "The Freak Circus — Gameplay Screenshot 1" },
-  { src: "/images/game/ss5.jpg", alt: "The Freak Circus — Gameplay Screenshot 2" },
-  { src: "/images/game/ss6.jpg", alt: "The Freak Circus — Gameplay Screenshot 3" },
+  { src: "/images/game/ss4.png", alt: "The Freak Circus — Gameplay Screenshot 1" },
+  { src: "/images/game/ss5.png", alt: "The Freak Circus — Gameplay Screenshot 2" },
+  { src: "/images/game/ss6.png", alt: "The Freak Circus — Gameplay Screenshot 3" },
 ];
 
 export function ScreenshotGallery() {

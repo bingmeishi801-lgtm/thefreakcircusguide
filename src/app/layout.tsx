@@ -8,14 +8,16 @@ const jsonLd = {
   "@type": "WebSite",
   name: "The Freak Circus Guide",
   url: "https://thefreakcircusguide.com",
-  description: "Fan-made guide for The Freak Circus by Garula. Character routes, endings, and tips for the horror visual novel.",
+  description: "Fan-made guide for The Freak Circus by Garula. Pierrot and Harlequin route walkthroughs, Day 1 & Day 2 choices, hidden scenes, name easter eggs, and lore breakdowns.",
   inLanguage: "en",
   isBasedOn: {
     "@type": "VideoGame",
     name: "The Freak Circus",
-    author: { "@type": "Person", name: "Garula" },
-    genre: ["Horror", "Visual Novel"],
+    author: { "@type": "Person", name: "Neko Bueno (Garula)" },
+    genre: ["Horror", "Visual Novel", "Yandere", "Romance"],
     url: "https://garula.itch.io/the-freak-circus",
+    applicationCategory: "Game",
+    operatingSystem: ["Windows", "Mac", "Linux", "Android"],
   },
   potentialAction: {
     "@type": "SearchAction",
@@ -25,21 +27,25 @@ const jsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: "The Freak Circus Guide — Characters, Endings & Walkthrough",
+  title: "The Freak Circus Guide — Pierrot & Harlequin Routes, Endings, Secrets",
   description:
-    "Fan-made guide for The Freak Circus by Garula. Character routes, endings, and tips for the horror visual novel. Updated as the game develops.",
+    "Fan-made guide for The Freak Circus by Garula. Pierrot and Harlequin route walkthroughs, Day 1 & Day 2 choices, hidden scenes, name easter eggs, and lore breakdowns. Updated for v0.2.",
   keywords: [
     "the freak circus guide",
     "the freak circus endings",
     "the freak circus characters",
     "the freak circus walkthrough",
+    "the freak circus pierrot route",
+    "the freak circus harlequin route",
+    "the freak circus day 2",
     "visual novel guide",
     "garula",
+    "neko bueno",
   ],
   openGraph: {
-    title: "The Freak Circus Guide — Characters, Endings & Walkthrough",
+    title: "The Freak Circus Guide — Pierrot & Harlequin Routes, Endings, Secrets",
     description:
-      "Fan-made guide for The Freak Circus. Character routes, endings, and tips. Updated as the game develops.",
+      "Fan-made guide for The Freak Circus by Garula. Pierrot and Harlequin route walkthroughs, hidden scenes, name easter eggs, and lore breakdowns.",
     url: "https://thefreakcircusguide.com",
     siteName: "The Freak Circus Guide",
     type: "website",

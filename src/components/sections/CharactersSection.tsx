@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ArrowRight, Skull, Eye, Shield, Wind, Flame, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Skull, Eye, Shield, Wind, Flame, CheckCircle2, Star } from "lucide-react";
 import { useProgress } from "@/lib/useProgress";
 
 interface Character {
@@ -14,19 +14,23 @@ interface Character {
 }
 
 const CHARACTER_BACKGROUNDS: Record<string, string> = {
-  luka: "/images/game/ss1.png",
-  vesper: "/images/game/ss2.png",
-  kazimir: "/images/game/ss3.png",
-  nyx: "/images/game/ss4.jpg",
-  dmitri: "/images/game/ss5.jpg",
+  pierrot: "/images/game/ss1.png",
+  harlequin: "/images/game/ss2.png",
+  doctor: "/images/game/char_doctor.png",
+  jester: "/images/game/char_jester.png",
+  "ticket-taker": "/images/game/char_ticket_taker.png",
+  columbina: "/images/game/char_columbina.png",
+  carol: "/images/game/ss6.png",
 };
 
 const CHARACTER_ICONS: Record<string, typeof Skull> = {
-  ringmaster: Skull,
-  fortune: Eye,
-  strongman: Shield,
-  trapeze: Wind,
-  fire: Flame,
+  skull: Skull,
+  eye: Eye,
+  shield: Shield,
+  wind: Wind,
+  flame: Flame,
+  star: Star,
+  heart: CheckCircle2,
 };
 
 export function CharactersSection({ initialData }: { initialData?: Character[] }) {

@@ -1,12 +1,12 @@
 import { Gamepad2, GitBranch, EyeOff, Flag, ListOrdered, Smartphone } from "lucide-react";
 
 const FEATURES = [
-  { icon: Gamepad2, title: "Online Play", desc: "Play in browser. Same window as the guide.", href: "#play" },
-  { icon: GitBranch, title: "Character Routes", desc: "Route hints and ending details for each character.", href: "#characters" },
-  { icon: EyeOff, title: "Spoiler Controls", desc: "Hidden by default. Click to reveal endings and hints.", href: "#faq" },
-  { icon: Flag, title: "Ending Tracker", desc: "See which endings you've found. Track your progress.", href: "#characters" },
-  { icon: ListOrdered, title: "Difficulty Ratings", desc: "Know which routes are harder before you start.", href: null },
-  { icon: Smartphone, title: "Mobile-First", desc: "Second screen use. No alt-tabbing.", href: "#play" },
+  { icon: Gamepad2, title: "Online Play", desc: "Play the demo in your browser. Same window as the guide.", href: "#play" },
+  { icon: GitBranch, title: "Character Routes", desc: "Pierrot & Harlequin route guides. Others updated as the game develops.", href: "#characters" },
+  { icon: EyeOff, title: "Hidden Scenes", desc: "Mirror scene, nose boop, bathroom secret — all documented.", href: "/hidden-scenes" },
+  { icon: Flag, title: "Ending Tracker", desc: "Track which endings you've found. 1 confirmed so far (v0.2).", href: "#characters" },
+  { icon: ListOrdered, title: "Lore & Background", desc: "The story of Columbina, the ringmaster's curse, and the love triangle.", href: "/lore" },
+  { icon: Smartphone, title: "Known Bugs", desc: "Workarounds for save import, texture glitches, and more.", href: "/bugs" },
 ];
 
 export function FeaturesSection() {

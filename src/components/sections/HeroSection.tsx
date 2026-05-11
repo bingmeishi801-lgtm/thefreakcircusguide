@@ -82,7 +82,7 @@ export function HeroSection() {
               Your Fan Guide to<br />The Freak Circus
             </h1>
             <p className="font-body text-base text-[#8A8F98] mb-8 max-w-lg">
-              Character profiles, route hints, and ending guides for The Freak Circus by Garula. Updated as the game develops — currently covering all 5 characters.
+              Character profiles, route hints, and ending guides for The Freak Circus by Garula. Updated as the game develops — currently covering all 7 characters.
             </p>
             <div className="flex flex-wrap gap-4 mb-6">
               <a href="#characters" className="cta-red">Browse Character Guides &mdash; Free</a>
@@ -95,7 +95,7 @@ export function HeroSection() {
                 <TrendingUp size={16} style={{ color: "#00F0FF" }} />
                 <span className="font-mono text-xs text-[#8A8F98]">Your progress:</span>
                 <span className="font-mono text-sm text-[#E8ECF0]">
-                  {charactersVisited}/5 characters explored
+                  {charactersVisited}/7 characters explored
                 </span>
                 <span className="text-[#1E1E2A]">·</span>
                 <span className="font-mono text-sm text-[#E8ECF0]">

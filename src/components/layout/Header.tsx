@@ -4,17 +4,22 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
-  { label: "CHARACTERS", hash: "characters" },
-  { label: "ENDINGS", hash: "features" },
-  { label: "PLAY", hash: "play" },
-  { label: "FAQ", hash: "faq" },
+  { label: "CHARACTERS", href: "/#characters", type: "hash" as const },
+  { label: "LORE", href: "/lore", type: "page" as const },
+  { label: "SECRETS", href: "/hidden-scenes", type: "page" as const },
+  { label: "PLAY", href: "/#play", type: "hash" as const },
+  { label: "FAQ", href: "/#faq", type: "hash" as const },
+  { label: "BUGS", href: "/bugs", type: "page" as const },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const href = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
+  const resolve = (item: typeof NAV_ITEMS[number]) => {
+    if (item.type === "page") return item.href;
+    return isHome ? item.href : item.href.replace("/#", "/#");
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0F]/90 backdrop-blur border-b border-[#1E1E2A]">
@@ -23,9 +28,17 @@ export function Header() {
           TFC GUIDE
         </a>
         <div className="hidden md:flex gap-8">
-          {NAV_ITEMS.map((l) => (
-            <a key={l.hash} href={href(l.hash)} className="font-body text-sm uppercase tracking-widest text-[#8A8F98] hover:text-[#E8ECF0] transition-colors">
-              {l.label}
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.label}
+              href={resolve(item)}
+              className={`font-body text-sm uppercase tracking-widest transition-colors ${
+                pathname === item.href
+                  ? "text-[#00F0FF]"
+                  : "text-[#8A8F98] hover:text-[#E8ECF0]"
+              }`}
+            >
+              {item.label}
             </a>
           ))}
         </div>
@@ -35,9 +48,18 @@ export function Header() {
       </nav>
       {open && (
         <div className="md:hidden bg-[#0A0A0F] border-t border-[#1E1E2A] px-6 py-4 flex flex-col gap-4">
-          {NAV_ITEMS.map((l) => (
-            <a key={l.hash} href={href(l.hash)} onClick={() => setOpen(false)} className="font-body text-sm uppercase tracking-widest text-[#8A8F98] hover:text-[#E8ECF0]">
-              {l.label}
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.label}
+              href={resolve(item)}
+              onClick={() => setOpen(false)}
+              className={`font-body text-sm uppercase tracking-widest ${
+                pathname === item.href
+                  ? "text-[#00F0FF]"
+                  : "text-[#8A8F98] hover:text-[#E8ECF0]"
+              }`}
+            >
+              {item.label}
             </a>
           ))}
         </div>

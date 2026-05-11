@@ -1,7 +1,7 @@
 import { User, Map, Trophy } from "lucide-react";
 
 const STEPS = [
-  { num: "01", icon: User, title: "Pick a Character", desc: "Choose from 5 characters. Each has a unique route and endings." },
+  { num: "01", icon: User, title: "Pick a Character", desc: "Choose from 7 characters. Main routes (Pierrot & Harlequin) have full playthroughs — others coming as the game develops." },
   { num: "02", icon: Map, title: "Read the Guide", desc: "Route hints and ending details. Spoilers hidden until you click." },
   { num: "03", icon: Trophy, title: "Track Your Progress", desc: "See which endings you've unlocked. Discover new ones as the game updates." },
 ];

@@ -62,19 +62,22 @@ const DIFFICULTY_COLORS: Record<string, string> = {
 };
 
 const CHARACTER_BACKGROUNDS: Record<string, string> = {
-  luka: "/images/game/ss1.png",
-  vesper: "/images/game/ss2.png",
-  kazimir: "/images/game/ss3.png",
-  nyx: "/images/game/ss4.jpg",
-  dmitri: "/images/game/ss5.jpg",
+  pierrot: "/images/game/ss1.png",
+  harlequin: "/images/game/ss2.png",
+  doctor: "/images/game/char_doctor.png",
+  jester: "/images/game/char_jester.png",
+  "ticket-taker": "/images/game/char_ticket_taker.png",
+  columbina: "/images/game/char_columbina.png",
+  carol: "/images/game/ss6.png",
 };
 
 const CHARACTER_EMOJIS: Record<string, string> = {
-  ringmaster: "🎩",
-  fortune: "🔮",
-  strongman: "💪",
-  trapeze: "🎪",
-  fire: "🔥",
+  ringmaster: "🤡",
+  fortune: "🃏",
+  strongman: "💉",
+  trapeze: "🎭",
+  fire: "🎫",
+  star: "✨",
 };
 
 export function CharacterPageClient({
