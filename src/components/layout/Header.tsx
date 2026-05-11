@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -11,13 +12,10 @@ const NAV_ITEMS = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const [isHome, setIsHome] = useState(true);
-
-  useEffect(() => {
-    setIsHome(window.location.pathname === "/");
-  }, []);
-
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const href = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0F]/90 backdrop-blur border-b border-[#1E1E2A]">
       <nav className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
