@@ -6,3 +6,4 @@ node_modules/
 .dev.vars
 *.tsbuildinfo
 design-v3/
+public/game/game.zip
