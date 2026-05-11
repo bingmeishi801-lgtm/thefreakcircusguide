@@ -220,15 +220,17 @@ export function CharacterPageClient({
                   {/* Header — always visible */}
                   <button
                     onClick={() => toggleEnding(ending.id)}
+                    aria-expanded={isRevealed}
+                    aria-controls={`ending-${ending.id}`}
                     className="w-full flex items-center gap-3 p-4 text-left hover:bg-[#1E1E2A]/30 transition-colors"
                   >
                     <Icon size={18} style={{ color: style.color }} />
                     <div className="flex-1 min-w-0">
-                      <span className="font-display text-sm text-[#E8ECF0]">
+                      <span className="font-display text-sm text-[#E8ECF0] block">
                         {ending.name}
                       </span>
                       <span
-                        className="ml-2 font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded"
+                        className="font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded inline-block mt-1"
                         style={{
                           color: style.color,
                           background: `${style.color}15`,
@@ -246,7 +248,7 @@ export function CharacterPageClient({
 
                   {/* Spoiler content */}
                   {isRevealed && (
-                    <div className="px-4 pb-4 border-t border-[#1E1E2A] pt-3">
+                    <div id={`ending-${ending.id}`} className="px-4 pb-4 border-t border-[#1E1E2A] pt-3" role="region" aria-labelledby={`ending-btn-${ending.id}`}>
                       <p className="font-body text-sm text-[#8A8F98] mb-3">
                         {ending.description}
                       </p>

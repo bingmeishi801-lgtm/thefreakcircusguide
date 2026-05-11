@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Service — The Freak Circus Guide",
   description: "Terms of service for The Freak Circus Guide fan site.",
+  alternates: {
+    canonical: "https://thefreakcircusguide.com/terms-of-service",
+  },
 };
 
 export default function TermsOfServicePage() {

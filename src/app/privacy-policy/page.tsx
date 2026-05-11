@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy — The Freak Circus Guide",
   description: "Privacy policy for The Freak Circus Guide fan site.",
+  alternates: {
+    canonical: "https://thefreakcircusguide.com/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {
