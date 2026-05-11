@@ -108,7 +108,7 @@ export function HeroSection() {
         {/* Overlay text — small, tucked at very bottom, aligned with content below */}
         <div className="absolute bottom-0 left-0 right-0 z-10">
           <div className="max-w-[1200px] mx-auto px-4 sm:px-6 pb-6">
-            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#00F0FF] mb-1"
+            <p className="font-mono text-sm uppercase tracking-[0.25em] text-[#00F0FF] mb-2"
               style={{ textShadow: '0 0 15px rgba(0,240,255,0.3)' }}>
               The Freak Circus — Horror Visual Novel
             </p>
