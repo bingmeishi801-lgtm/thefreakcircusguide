@@ -105,14 +105,17 @@ export function HeroSection() {
             linear-gradient(to left, #0A0A0F 0%, transparent 18%)
           `
         }} />
-        {/* Overlay text */}
-        <div className="relative z-10 flex flex-col justify-end min-h-[500px] px-8 pb-16 sm:px-16">
-          <p className="font-mono text-sm uppercase tracking-widest text-[#00F0FF] mb-3">
-            The Freak Circus — Horror Visual Novel
-          </p>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-[#E8ECF0] drop-shadow-lg">
-            Enter the Circus. Face Your Fears.
-          </h2>
+        {/* Overlay text — centered with glass-morphism backdrop */}
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-[500px] px-8 text-center">
+          <div className="backdrop-blur-sm bg-black/30 rounded-2xl px-10 py-8 sm:px-16 sm:py-12 border border-white/5">
+            <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.3em] text-[#00F0FF] mb-4">
+              The Freak Circus — Horror Visual Novel
+            </p>
+            <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-tight">
+              Enter the Circus.<br />Face Your Fears.
+            </h2>
+            <div className="mt-6 w-16 h-[2px] bg-[#00F0FF] mx-auto opacity-60" />
+          </div>
         </div>
       </div>
 
