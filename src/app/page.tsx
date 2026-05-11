@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { CharactersSection } from "@/components/sections/CharactersSection";
 import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { ScreenshotGallery } from "@/components/sections/ScreenshotGallery";
 import { TrustSection } from "@/components/sections/TrustSection";
 import { CTASection } from "@/components/sections/CTASection";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -33,6 +34,7 @@ export default async function HomePage() {
       <CharactersSection initialData={characters.length > 0 ? characters : undefined} />
       <HowItWorksSection />
       <FeaturesSection />
+      <ScreenshotGallery />
       <TrustSection />
       <CTASection />
       <FAQSection initialData={faq.length > 0 ? faq : undefined} />

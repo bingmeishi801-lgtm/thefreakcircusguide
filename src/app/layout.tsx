@@ -35,6 +35,12 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   metadataBase: new URL("https://thefreakcircusguide.com"),
+  alternates: {
+    canonical: "https://thefreakcircusguide.com",
+  },
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
