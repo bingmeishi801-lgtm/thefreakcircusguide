@@ -226,6 +226,20 @@
           }
       }
   </script>
+  <script>
+      // Intercept XHR requests from Ren'Py webloader to redirect game asset downloads to itch.zone
+      (function() {
+          var UPSTREAM = 'https://html-classic.itch.zone/html/16572088/';
+          var origOpen = XMLHttpRequest.prototype.open;
+          XMLHttpRequest.prototype.open = function(method, url, ...args) {
+              // Rewrite relative 'game/' paths to upstream itch.zone URLs
+              if (typeof url === 'string' && url.indexOf('game/') === 0 && url.indexOf('.zip') === -1) {
+                  url = UPSTREAM + url;
+              }
+              return origOpen.call(this, method, url, ...args);
+          };
+      })();
+  </script>
   <script src="renpy-pre.js"></script>
   <script async type="text/javascript" src="renpy.js"></script>
 </body>

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { Gamepad2, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Gamepad2, Search, X, ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
 
 interface Character {
   id: number;
@@ -46,6 +46,23 @@ export function HeroSection() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const gameContainerRef = useRef<HTMLDivElement>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = () => {
+    if (!gameContainerRef.current) return;
+    if (!document.fullscreenElement) {
+      gameContainerRef.current.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+    } else {
+      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+    }
+  };
+
+  useEffect(() => {
+    const handler = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", handler);
+    return () => document.removeEventListener("fullscreenchange", handler);
+  }, []);
 
   useEffect(() => {
     fetch("/api/characters")
@@ -217,12 +234,19 @@ export function HeroSection() {
           </div>
 
           {/* Right: Game Container */}
-          <div id="play" className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-lg p-1 relative min-h-[360px]">
+          <div id="play" ref={gameContainerRef} className="hud-frame bg-[#12121A] border border-[#1E1E2A] rounded-lg p-1 relative min-h-[360px]">
             <span className="hud-id absolute top-2 right-3 z-10">VIGILANCE_CONTAINER.01</span>
+            <button
+              onClick={toggleFullscreen}
+              className="absolute top-2 left-3 z-10 bg-black/60 hover:bg-[#00F0FF]/20 border border-[#1E1E2A] hover:border-[#00F0FF]/40 rounded p-1.5 transition-all cursor-pointer"
+              title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+            >
+              {isFullscreen ? <Minimize2 size={16} color="#00F0FF" /> : <Maximize2 size={16} color="#00F0FF" />}
+            </button>
             <iframe
               src="/game/index.html"
               className="w-full rounded-lg"
-              style={{ minHeight: "480px", border: "none" }}
+              style={{ minHeight: isFullscreen ? "100vh" : "480px", border: "none" }}
               title="The Freak Circus — Play Now"
               loading="lazy"
             />
