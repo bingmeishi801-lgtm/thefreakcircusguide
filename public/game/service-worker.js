@@ -7,7 +7,16 @@ self.addEventListener('install', function (e) {
 });
 
 self.addEventListener('activate', function (e) {
-    return self.clients.claim();
+    // Clear all caches on activation to remove stale 404 responses
+    e.waitUntil(
+        caches.keys().then(function(names) {
+            return Promise.all(names.map(function(name) {
+                return caches.delete(name);
+            }));
+        }).then(function() {
+            return self.clients.claim();
+        })
+    );
 });
 
 
