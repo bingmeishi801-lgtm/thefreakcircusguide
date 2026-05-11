@@ -1,29 +1,32 @@
--- TFC Guide Seed Data (Updated for v0.2 — game still in development)
+-- Migration: Update data to match actual game state (v0.2)
+-- Delete old data first (characters stay the same)
 
-INSERT OR IGNORE INTO characters (id, name, slug, role, personality, route_hint, icon, sort_order) VALUES
-(1, 'Luka', 'luka', 'Circus Ringmaster', 'Charismatic, manipulative, hides dark secrets behind a dazzling smile', 'Choose trust over suspicion at the crossroads', 'ringmaster', 1),
-(2, 'Vesper', 'vesper', 'Fortune Teller', 'Mysterious, cold exterior but deeply loyal once trust is earned', 'Follow the tarot readings consistently', 'fortune', 2),
-(3, 'Kazimir', 'kazimir', 'Strongman', 'Gentle giant with a tragic past, protective instincts', 'Defend him during the Act 2 confrontation', 'strongman', 3),
-(4, 'Nyx', 'nyx', 'Trapeze Artist', 'Free-spirited, unpredictable, fears commitment', 'Let her go at the Midnight Bridge scene', 'trapeze', 4),
-(5, 'Dmitri', 'dmitri', 'Fire Breather', 'Intense, passionate, struggles with inner demons', 'Choose honesty over flattery in Act 1', 'fire', 5);
+DELETE FROM endings;
+DELETE FROM routes;
+DELETE FROM tips;
+DELETE FROM faq;
 
-INSERT OR IGNORE INTO routes (id, character_slug, title, slug, summary, difficulty, ending_count, sort_order) VALUES
+-- Re-insert routes
+INSERT INTO routes (id, character_slug, title, slug, summary, difficulty, ending_count, sort_order) VALUES
 (1, 'luka', 'The Ringmaster''s Game', 'luka-route', 'Navigate Luka''s web of lies and discover the truth behind the circus. The only route with a confirmed ending so far.', 'Hard', 1, 1),
 (2, 'vesper', 'Cards of Fate', 'vesper-route', 'Vesper''s tarot readings are never wrong. Follow the cards to unlock hidden truths about the circus and yourself.', 'Normal', 0, 2),
 (3, 'kazimir', 'Behind the Curtain', 'kazimir-route', 'The strongest man in the circus carries the heaviest burden. Help Kazimir confront his past.', 'Normal', 0, 3),
 (4, 'nyx', 'Flight of the Acrobat', 'nyx-route', 'Nyx flies high but falls hard. Catch her before she disappears forever.', 'Hard', 0, 4),
 (5, 'dmitri', 'Burning Truths', 'dmitri-route', 'Fire reveals and fire destroys. Dmitri''s path is a dance between passion and destruction.', 'Normal', 0, 5);
 
-INSERT OR IGNORE INTO endings (id, route_slug, name, slug, ending_type, description, unlock_hint, sort_order) VALUES
+-- Re-insert endings (only 1 confirmed)
+INSERT INTO endings (id, route_slug, name, slug, ending_type, description, unlock_hint, sort_order) VALUES
 (1, 'luka-route', 'The Last Curtain', 'luka-ending-bad', 'bad', 'The only ending currently available in v0.2. Betrayal leads to the circus consuming you both.', 'Challenge Luka repeatedly without evidence', 1);
 
-INSERT OR IGNORE INTO tips (id, category, title, content, sort_order) VALUES
+-- Re-insert tips
+INSERT INTO tips (id, category, title, content, sort_order) VALUES
 (1, 'beginner', 'Save Before Every Choice', 'The game does NOT auto-save before branching decisions. Manual save is your best friend.', 1),
 (2, 'beginner', 'Read Every Letter', 'Collectible letters contain crucial backstory. Missing them may lock you out of certain paths.', 2),
 (3, 'advanced', 'Hidden Affection Meter', 'Each character has a hidden affection stat. Dialogue choices affect it in ways the game doesn''t show.', 3),
 (4, 'general', 'Game is in Development', 'The Freak Circus is currently at v0.2. Only 1 ending (Luka''s Bad Ending) is available. More endings and routes will be added in future updates.', 4);
 
-INSERT OR IGNORE INTO faq (id, question, answer, sort_order) VALUES
+-- Re-insert FAQ
+INSERT INTO faq (id, question, answer, sort_order) VALUES
 (1, 'How many endings does The Freak Circus have?', 'Currently (v0.2) there is only 1 confirmed ending — Luka''s Bad Ending. The developer has plans for more endings across all 5 character routes as the game develops.', 1),
 (2, 'Is there a True Ending?', 'Not yet. A True Ending may be added in a future update once all character routes are completed.', 2),
 (3, 'Can I play routes in any order?', 'Yes. Currently only parts of the story are available. Luka''s route is the most complete so far.', 3),

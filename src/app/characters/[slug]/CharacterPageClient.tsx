@@ -178,7 +178,7 @@ export function CharacterPageClient({
                       {route.difficulty}
                     </span>
                     <span className="font-mono text-[11px] text-[#8A8F98]">
-                      {route.ending_count} endings
+                      {route.ending_count > 0 ? `${route.ending_count} ending${route.ending_count > 1 ? 's' : ''}` : 'Endings coming soon'}
                     </span>
                   </div>
                 </div>

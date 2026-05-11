@@ -56,8 +56,8 @@ export async function generateMetadata({
   if (!character) return { title: "Character Not Found" };
 
   return {
-    title: `${character.name} Guide — The Freak Circus | All Endings & Routes`,
-    description: `Complete ${character.name} route guide for The Freak Circus. ${character.role} — ${character.personality}. All endings, choices, and spoiler-free hints.`,
+    title: `${character.name} Guide — The Freak Circus`,
+    description: `${character.name} route guide for The Freak Circus. ${character.role} — ${character.personality}. Route hints, choices, and ending details.`,
     openGraph: {
       title: `${character.name} Guide — The Freak Circus`,
       description: `${character.role}: ${character.personality}`,
