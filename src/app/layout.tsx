@@ -3,6 +3,27 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "The Freak Circus Guide",
+  url: "https://thefreakcircusguide.com",
+  description: "Fan-made guide for The Freak Circus by Garula. Character routes, endings, and tips for the horror visual novel.",
+  inLanguage: "en",
+  isBasedOn: {
+    "@type": "VideoGame",
+    name: "The Freak Circus",
+    author: { "@type": "Person", name: "Garula" },
+    genre: ["Horror", "Visual Novel"],
+    url: "https://garula.itch.io/the-freak-circus",
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://thefreakcircusguide.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export const metadata: Metadata = {
   title: "The Freak Circus Guide — Characters, Endings & Walkthrough",
   description:
@@ -51,6 +72,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" translate="no">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="scanlines min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">{children}</main>

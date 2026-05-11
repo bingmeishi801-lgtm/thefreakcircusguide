@@ -40,20 +40,25 @@ export function FAQSection({ initialData }: { initialData?: FAQItem[] }) {
                 <div key={item.id} className="border border-[#1E1E2A] rounded-lg bg-[#12121A] overflow-hidden">
                   <button
                     onClick={() => setOpen(open === i ? null : i)}
-                    className="w-full flex items-center justify-between px-6 py-4 text-left"
+                    aria-expanded={open === i}
+                    aria-controls={`faq-answer-${item.id}`}
+                    className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-[#1E1E2A]/30 transition-colors"
                   >
                     <span className="font-body text-sm font-medium text-[#E8ECF0]">{item.question}</span>
                     <ChevronDown
                       size={18}
-                      className={`faq-icon text-[#8A8F98] flex-shrink-0 ml-4 ${open === i ? "rotate-180" : ""}`}
-                      style={{ transition: "transform 0.3s" }}
+                      className="faq-icon text-[#8A8F98] flex-shrink-0 ml-4"
+                      style={{ transition: "transform 0.3s", transform: open === i ? "rotate(180deg)" : "rotate(0deg)" }}
                     />
                   </button>
                   <div
+                    id={`faq-answer-${item.id}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${item.id}`}
                     className="px-6 overflow-hidden transition-all duration-300"
-                    style={{ maxHeight: open === i ? "200px" : "0", paddingBottom: open === i ? "16px" : "0" }}
+                    style={{ maxHeight: open === i ? "300px" : "0", paddingBottom: open === i ? "16px" : "0" }}
                   >
-                    <p className="font-body text-sm text-[#8A8F98]">{item.answer}</p>
+                    <p className="font-body text-sm text-[#8A8F98] leading-relaxed">{item.answer}</p>
                   </div>
                 </div>
               ))}

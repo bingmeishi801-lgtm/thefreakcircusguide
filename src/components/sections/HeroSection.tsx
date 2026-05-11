@@ -31,8 +31,10 @@ export function HeroSection() {
     fetch("/api/characters")
       .then((r) => r.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          setCharacters(data);
+        const d = data as any;
+        const list = Array.isArray(d) ? d : d?.data;
+        if (Array.isArray(list)) {
+          setCharacters(list);
         }
       })
       .catch(() => {});

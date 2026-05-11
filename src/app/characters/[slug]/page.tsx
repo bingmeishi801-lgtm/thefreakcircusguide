@@ -110,10 +110,31 @@ export default async function CharacterPage({
   }
 
   return (
-    <CharacterPageClient
-      character={character}
-      routes={routes}
-      endings={endings}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: `${character.name} Guide — The Freak Circus`,
+            description: `${character.role} — ${character.personality}. Route hints, choices, and ending details.`,
+            url: `https://thefreakcircusguide.com/characters/${slug}`,
+            author: { "@type": "Organization", name: "The Freak Circus Guide" },
+            about: {
+              "@type": "VideoGame",
+              name: "The Freak Circus",
+              author: { "@type": "Person", name: "Garula" },
+            },
+            dateModified: new Date().toISOString().split("T")[0],
+          }),
+        }}
+      />
+      <CharacterPageClient
+        character={character}
+        routes={routes}
+        endings={endings}
+      />
+    </>
   );
 }
