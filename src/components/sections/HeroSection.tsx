@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
-import { Gamepad2, Search, X, Maximize2, Minimize2 } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Search, X, Gamepad2, Maximize2, Minimize2 } from "lucide-react";
+
+const HERO_BG = "/images/game/hero.png";
 
 interface Character {
   id: number;
@@ -10,114 +12,112 @@ interface Character {
   personality: string;
 }
 
-function useStats() {
-  const [stats, setStats] = useState({ characters: 0, routes: 0, endings: 0 });
-  useEffect(() => {
-    Promise.all([
-      fetch("/api/characters").then((r) => r.json() as Promise<{ data: unknown[] }>).catch(() => ({ data: [] })),
-      fetch("/api/routes").then((r) => r.json() as Promise<{ data: unknown[] }>).catch(() => ({ data: [] })),
-      fetch("/api/endings").then((r) => r.json() as Promise<{ data: unknown[] }>).catch(() => ({ data: [] })),
-    ]).then(([c, r, e]) => {
-      setStats({
-        characters: c.data?.length || 0,
-        routes: r.data?.length || 0,
-        endings: e.data?.length || 0,
-      });
-    });
-  }, []);
-  return stats;
+interface SiteStats {
+  characters: number;
+  endings: number;
 }
 
-const HERO_BG = "/images/game/hero.png";
-
 export function HeroSection() {
-  const stats = useStats();
   const [query, setQuery] = useState("");
   const [characters, setCharacters] = useState<Character[]>([]);
   const [results, setResults] = useState<Character[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [stats, setStats] = useState<SiteStats>({ characters: 0, endings: 0 });
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const gameContainerRef = useRef<HTMLDivElement>(null);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  const toggleFullscreen = () => {
-    if (!gameContainerRef.current) return;
-    if (!document.fullscreenElement) {
-      gameContainerRef.current.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
-    } else {
-      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
-    }
-  };
-
-  useEffect(() => {
-    const handler = () => setIsFullscreen(!!document.fullscreenElement);
-    document.addEventListener("fullscreenchange", handler);
-    return () => document.removeEventListener("fullscreenchange", handler);
-  }, []);
 
   useEffect(() => {
     fetch("/api/characters")
-      .then((r) => r.json() as Promise<{ data: Character[] }>)
-      .then((d) => setCharacters(d.data || []))
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setCharacters(data);
+        }
+      })
       .catch(() => {});
   }, []);
 
   useEffect(() => {
-    if (!query.trim()) {
+    fetch("/api/stats")
+      .then((r) => r.json())
+      .then((data) => setStats(data as SiteStats))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!query) {
       setResults([]);
-      setShowDropdown(false);
       return;
     }
     const q = query.toLowerCase();
-    const matched = characters.filter(
-      (c) =>
-        c.name.toLowerCase().includes(q) ||
-        c.role.toLowerCase().includes(q) ||
-        c.personality.toLowerCase().includes(q)
+    setResults(
+      characters.filter(
+        (c) =>
+          c.name.toLowerCase().includes(q) ||
+          c.role.toLowerCase().includes(q) ||
+          c.personality.toLowerCase().includes(q)
+      )
     );
-    setResults(matched);
-    setShowDropdown(matched.length > 0);
   }, [query, characters]);
 
+  const toggleFullscreen = useCallback(() => {
+    if (!gameContainerRef.current) return;
+    if (!document.fullscreenElement) {
+      gameContainerRef.current.requestFullscreen().then(() => setIsFullscreen(true));
+    } else {
+      document.exitFullscreen().then(() => setIsFullscreen(false));
+    }
+  }, []);
+
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
+    const handleFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", handleFsChange);
+    return () => document.removeEventListener("fullscreenchange", handleFsChange);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
         setShowDropdown(false);
       }
-    }
+    };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <section id="hero" className="pt-24 pb-16 px-4 sm:px-6">
-      <div className="max-w-[1200px] mx-auto">
-        {/* Game Art Hero Banner — no border, blends into bg */}
-        <div className="relative overflow-hidden mb-10">
-          <div className="relative h-[400px] sm:h-[500px] md:h-[600px]">
-            {/* Static hero background */}
-            <img
-              src={HERO_BG}
-              alt="The Freak Circus — Game Art"
-              className="w-full h-full object-cover"
-              loading="eager"
-            />
-            {/* Gradient fades image into the dark page background */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-[#0A0A0F]/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0A0A0F] to-transparent" />
-            {/* Overlay text */}
-            <div className="absolute bottom-10 left-8 right-8 z-10">
-              <p className="font-mono text-sm uppercase tracking-widest text-[#00F0FF] mb-3">
-                The Freak Circus — Horror Visual Novel
-              </p>
-              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-[#E8ECF0] drop-shadow-lg">
-                Enter the Circus. Face Your Fears.
-              </h2>
-            </div>
-          </div>
+    <section id="hero" className="pt-24 pb-16">
+      {/* ========== Full-bleed Hero — dissolves into bg ========== */}
+      <div className="relative mb-10 overflow-hidden" style={{ minHeight: '500px' }}>
+        <img
+          src={HERO_BG}
+          alt="The Freak Circus — Game Art"
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+        />
+        {/* Edge fade: vignette on all 4 sides so image dissolves into #0A0A0F bg */}
+        <div className="absolute inset-0" style={{
+          background: `
+            linear-gradient(to bottom, #0A0A0F 0%, transparent 20%),
+            linear-gradient(to top, #0A0A0F 0%, transparent 40%),
+            linear-gradient(to right, #0A0A0F 0%, transparent 18%),
+            linear-gradient(to left, #0A0A0F 0%, transparent 18%)
+          `
+        }} />
+        {/* Overlay text */}
+        <div className="relative z-10 flex flex-col justify-end min-h-[500px] px-8 pb-16 sm:px-16">
+          <p className="font-mono text-sm uppercase tracking-widest text-[#00F0FF] mb-3">
+            The Freak Circus — Horror Visual Novel
+          </p>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-[#E8ECF0] drop-shadow-lg">
+            Enter the Circus. Face Your Fears.
+          </h2>
         </div>
+      </div>
 
-        {/* Main content grid */}
+      {/* ========== Main content grid ========== */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           {/* Left: Copy */}
           <div>
