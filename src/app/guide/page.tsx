@@ -60,7 +60,7 @@ export default function GuidePage() {
                 },
                 {
                   label: "Affection System",
-                  desc: "Hidden mechanic — your choices build or break affection with each character. Red tickets are associated with Pierrot, green with Harlequin.",
+                  desc: "Hidden mechanic — your choices build or break affection with each character. No visible meter — infer from dialogue and scene changes.",
                 },
                 {
                   label: "Save/Load",

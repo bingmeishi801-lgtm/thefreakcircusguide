@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "CHARACTERS", href: "/#characters", type: "hash" as const },
+  { label: "WALKTHROUGH", href: "/walkthrough", type: "page" as const },
   { label: "GUIDE", href: "/guide", type: "page" as const },
   { label: "LORE", href: "/lore", type: "page" as const },
   { label: "SECRETS", href: "/hidden-scenes", type: "page" as const },

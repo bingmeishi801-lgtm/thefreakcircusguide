@@ -7,6 +7,7 @@ export default function sitemap() {
   return [
     { url: baseUrl, lastModified: new Date() },
     { url: `${baseUrl}/guide`, lastModified: new Date() },
+    { url: `${baseUrl}/walkthrough`, lastModified: new Date() },
     { url: `${baseUrl}/lore`, lastModified: new Date() },
     { url: `${baseUrl}/hidden-scenes`, lastModified: new Date() },
     { url: `${baseUrl}/endings`, lastModified: new Date() },
