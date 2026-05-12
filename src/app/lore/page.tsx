@@ -141,19 +141,7 @@ export default function LorePage() {
           </div>
         </section>
 
-        {/* Community */}
-        <div className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-          <h3 className="font-display text-lg text-[#E8ECF0] mb-2">Want to Discuss the Lore?</h3>
-          <p className="text-sm text-[#8A8F98] mb-3">
-            Join our community to discuss theories, share discoveries, and speculate about future content.
-          </p>
-          <a
-            href="https://t.me/tfcguide"
-            className="inline-block text-sm font-display text-[#00F0FF] hover:text-[#E8ECF0] transition-colors"
-          >
-            Join Telegram Community →
-          </a>
-        </div>
+
       </div>
     </main>
   );

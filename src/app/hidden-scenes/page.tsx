@@ -262,13 +262,7 @@ export default function HiddenScenesPage() {
           <p className="text-sm text-[#C8CCD4]">
             <strong className="text-[#FF4F7F]">⚠️ Spoiler Note:</strong> This page contains major spoilers for The Freak Circus. If you haven&apos;t played through the game at least once, we recommend doing a blind playthrough first.
           </p>
-          <p className="text-sm text-[#8A8F98] mt-3">
-            Found a hidden scene we missed? Join our{" "}
-            <a href="https://t.me/tfcguide" className="text-[#00F0FF] hover:underline">
-              Telegram community
-            </a>{" "}
-            and share your discovery.
-          </p>
+
         </div>
       </div>
     </main>

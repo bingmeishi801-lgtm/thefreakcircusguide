@@ -89,10 +89,6 @@ export default function BugsPage() {
           <strong className="text-[#E8ECF0]">Report new bugs:</strong>{" "}
           <a href="https://garula.itch.io/the-freak-circus" className="text-[#00F0FF] hover:underline" target="_blank" rel="noopener">
             Comment on itch.io
-          </a>{" "}
-          or{" "}
-          <a href="https://t.me/tfcguide" className="text-[#00F0FF] hover:underline">
-            tell us on Telegram
           </a>
         </p>
 
