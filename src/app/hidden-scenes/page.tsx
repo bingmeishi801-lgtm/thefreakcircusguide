@@ -1,47 +1,13 @@
-"use client";
-import { useState, useEffect } from "react";
 import type { Metadata } from "next";
 
-const SCENES = [
-  { id: "mirror", emoji: "🪞", title: "The Mirror Scene", tag: "HIDDEN", tagColor: "#FF4F7F" },
-  { id: "bathroom", emoji: "🚿", title: "The Bathroom Scene", tag: "HIDDEN", tagColor: "#FF4F7F" },
-  { id: "nose-boop", emoji: "👉", title: "Pierrot's Nose Boop", tag: "EASTER EGG", tagColor: "#00F0FF" },
-  { id: "photos", emoji: "📸", title: "Harlequin's Photo Obsession", tag: "HIDDEN", tagColor: "#FF4F7F" },
-  { id: "kiss", emoji: "💋", title: "The Player Can Kiss First", tag: "SECRET", tagColor: "#00F0FF" },
-  { id: "laugh", emoji: "🤡", title: "Harlequin's Real Laugh", tag: "EASTER EGG", tagColor: "#00F0FF" },
-  { id: "doctor-voice", emoji: "🧛", title: "The Doctor's Voice", tag: "DETAIL", tagColor: "#FF4F7F" },
-] as const;
-
-function useChecklist() {
-  const [checked, setChecked] = useState<Set<string>>(new Set());
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("tfc-hidden-scenes");
-      if (saved) setChecked(new Set(JSON.parse(saved)));
-    } catch {}
-    setReady(true);
-  }, []);
-
-  const toggle = (id: string) => {
-    setChecked((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      localStorage.setItem("tfc-hidden-scenes", JSON.stringify([...next]));
-      return next;
-    });
-  };
-
-  return { checked, toggle, ready };
-}
+export const metadata: Metadata = {
+  title: "Hidden Details & Secrets — The Freak Circus Guide",
+  description:
+    "Details and secrets found in The Freak Circus v0.2 prototype by the community.",
+  alternates: { canonical: "https://thefreakcircusguide.com/hidden-scenes" },
+};
 
 export default function HiddenScenesPage() {
-  const { checked, toggle, ready } = useChecklist();
-  const found = checked.size;
-  const total = SCENES.length;
-
   return (
     <main className="min-h-screen bg-[#0A0A12] text-[#E8ECF0] pt-24 pb-20 px-4 sm:px-6">
       <div className="max-w-[800px] mx-auto">
@@ -49,220 +15,131 @@ export default function HiddenScenesPage() {
           Spoiler Warning
         </p>
         <h1 className="font-display text-3xl sm:text-4xl mb-4">
-          Hidden Scenes &amp; Easter Eggs
+          Hidden Details &amp; Secrets
         </h1>
-        <p className="text-[#8A8F98] text-sm mb-6">
-          The Freak Circus hides several secret interactions and scenes that most players miss on their first playthrough. Here&apos;s everything the community has found so far.
+        <p className="text-[#8A8F98] text-sm mb-10">
+          Community-discovered details and secrets from The Freak Circus v0.2
+          prototype. This page will be updated as more content is found and
+          verified.
         </p>
 
-        {/* Progress tracker */}
-        {ready && (
-          <div className="mb-10 p-4 rounded-xl bg-[#12121A] border border-[#1E1E2A] flex items-center gap-4">
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-xs text-[#8A8F98]">Discovery Progress</span>
-                <span className="font-mono text-sm text-[#00F0FF]">{found}/{total}</span>
+        {/* Known Details */}
+        <section className="mb-12">
+          <h2 className="font-display text-xl text-[#FF4F7F] mb-4">
+            🔍 Confirmed Details
+          </h2>
+          <div className="space-y-4">
+            <article className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">🧛</span>
+                <h3 className="font-display text-lg text-[#E8ECF0]">
+                  The Doctor&apos;s Russian Accent
+                </h3>
+                <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded text-[#FF4F7F] bg-[#FF4F7F]/15">
+                  DETAIL
+                </span>
               </div>
-              <div className="h-2 bg-[#0A0A12] rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full transition-all duration-500"
-                  style={{
-                    width: `${(found / total) * 100}%`,
-                    background: found === total ? "#00F0FF" : "linear-gradient(90deg, #FF4F7F, #00F0FF)",
-                  }}
-                />
+              <p className="text-sm text-[#C8CCD4]">
+                The Doctor has a Russian accent. If you&apos;re speed-reading,
+                you might miss it. Fans are actively requesting a romance route
+                for him.
+              </p>
+            </article>
+
+            <article className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">🤡</span>
+                <h3 className="font-display text-lg text-[#E8ECF0]">
+                  Harlequin&apos;s Heterochromatic Eyes
+                </h3>
+                <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded text-[#00F0FF] bg-[#00F0FF]/15">
+                  DESIGN
+                </span>
               </div>
-            </div>
-            {found === total && (
-              <span className="font-mono text-xs text-[#00F0FF]">✦ Complete!</span>
-            )}
-          </div>
-        )}
+              <p className="text-sm text-[#C8CCD4]">
+                Harlequin has heterochromatic eyes (two different eye colors).
+                This is part of his character design and ties into his dual
+                nature as a seductive but dangerous rival.
+              </p>
+            </article>
 
-        {/* Scene 1: Mirror */}
-        <article className="mb-8 p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-          <div className="flex items-center gap-3 mb-4">
-            <button
-              onClick={() => toggle("mirror")}
-              className="w-6 h-6 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
-              style={{
-                borderColor: checked.has("mirror") ? "#00F0FF" : "#3A3A4A",
-                background: checked.has("mirror") ? "#00F0FF20" : "transparent",
-              }}
-            >
-              {checked.has("mirror") && <span className="text-[#00F0FF] text-xs">✓</span>}
-            </button>
-            <span className="text-2xl">🪞</span>
-            <h2 className="font-display text-xl text-[#E8ECF0]">The Mirror Scene</h2>
-            <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: "#FF4F7F", background: "#FF4F7F15" }}>HIDDEN</span>
+            <article className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">🤡</span>
+                <h3 className="font-display text-lg text-[#E8ECF0]">
+                  Harlequin&apos;s Mask
+                </h3>
+                <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded text-[#00F0FF] bg-[#00F0FF]/15">
+                  DESIGN
+                </span>
+              </div>
+              <p className="text-sm text-[#C8CCD4]">
+                Harlequin wears a mask that only shows a wide grin. His real
+                expressions are hidden behind it, making it hard to tell what
+                he&apos;s actually thinking or feeling.
+              </p>
+            </article>
+
+            <article className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">🔪</span>
+                <h3 className="font-display text-lg text-[#E8ECF0]">
+                  Pierrot&apos;s Shark-Like Teeth
+                </h3>
+                <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded text-[#FF4F7F] bg-[#FF4F7F]/15">
+                  DESIGN
+                </span>
+              </div>
+              <p className="text-sm text-[#C8CCD4]">
+                Pierrot has shark-like teeth — a distinctive design choice that
+                adds to his unsettling presence as a silent yandere character.
+              </p>
+            </article>
+
+            <article className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">🎭</span>
+                <h3 className="font-display text-lg text-[#E8ECF0]">
+                  The Ticket System
+                </h3>
+                <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded text-[#FFB84D] bg-[#FFB84D]/15">
+                  MECHANIC
+                </span>
+              </div>
+              <p className="text-sm text-[#C8CCD4]">
+                The game uses a ticket system tied to character routes. Red
+                tickets are associated with Pierrot, green tickets with
+                Harlequin. The Ticket Taker character controls this system.
+              </p>
+            </article>
           </div>
-          <p className="text-sm text-[#C8CCD4] mb-4">
-            After the dressing room scene, <strong>look at the mirror</strong> before leaving. This triggers a unique scene where Pierrot catches you staring — and the dialogue changes depending on whether you&apos;re on a Pierrot or Harlequin route.
+        </section>
+
+        {/* Community Contributions */}
+        <section className="mb-12">
+          <h2 className="font-display text-xl text-[#FFB84D] mb-4">
+            📝 Help Us Document More
+          </h2>
+          <div className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+            <p className="text-sm text-[#C8CCD4] leading-relaxed mb-4">
+              The Freak Circus has many hidden details that the community is
+              still discovering. If you&apos;ve found a secret scene, easter egg,
+              or hidden detail in your playthrough, we want to hear about it.
+            </p>
+            <p className="text-sm text-[#8A8F98]">
+              This page will be updated with verified community findings as the
+              game develops.
+            </p>
+          </div>
+        </section>
+
+        {/* Disclaimer */}
+        <div className="p-4 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+          <p className="text-xs text-[#8A8F98]">
+            <strong className="text-[#FFB84D]">Note:</strong> All entries on
+            this page are verified against in-game content from the v0.2
+            prototype. Unverified claims are not included.
           </p>
-          <div className="bg-[#0A0A12] rounded-lg p-4 font-mono text-xs text-[#8A8F98]">
-            <p className="text-[#00F0FF] mb-2">How to trigger:</p>
-            <p>Dressing Room → <span className="text-[#E8ECF0]">Look at mirror</span> (instead of Leave) → Unique dialogue plays</p>
-            <p className="mt-2 text-[#FF4F7F]">Note: Very easy to miss — the &quot;Leave&quot; button is more prominent</p>
-          </div>
-        </article>
-
-        {/* Scene 2: Bathroom */}
-        <article className="mb-8 p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-          <div className="flex items-center gap-3 mb-4">
-            <button
-              onClick={() => toggle("bathroom")}
-              className="w-6 h-6 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
-              style={{
-                borderColor: checked.has("bathroom") ? "#00F0FF" : "#3A3A4A",
-                background: checked.has("bathroom") ? "#00F0FF20" : "transparent",
-              }}
-            >
-              {checked.has("bathroom") && <span className="text-[#00F0FF] text-xs">✓</span>}
-            </button>
-            <span className="text-2xl">🚿</span>
-            <h2 className="font-display text-xl text-[#E8ECF0]">The Bathroom Scene</h2>
-            <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: "#FF4F7F", background: "#FF4F7F15" }}>HIDDEN</span>
-          </div>
-          <p className="text-sm text-[#C8CCD4] mb-4">
-            When given the choice to <strong>take a shower or not</strong> in the bathroom — choose <strong>no</strong>. The creep factor skyrockets, and the scene that follows is one of the most unsettling in the game. Players who chose &quot;yes&quot; miss this entirely.
-          </p>
-          <div className="bg-[#0A0A12] rounded-lg p-4 font-mono text-xs text-[#8A8F98]">
-            <p className="text-[#00F0FF] mb-2">How to trigger:</p>
-            <p>Bathroom choice → <span className="text-[#E8ECF0]">Don&apos;t take a shower</span> → Creepy scene plays</p>
-            <p className="mt-2 text-[#FF4F7F]">Counter-intuitive — most players pick &quot;yes&quot; instinctively</p>
-          </div>
-        </article>
-
-        {/* Scene 3: Nose Boop */}
-        <article className="mb-8 p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-          <div className="flex items-center gap-3 mb-4">
-            <button
-              onClick={() => toggle("nose-boop")}
-              className="w-6 h-6 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
-              style={{
-                borderColor: checked.has("nose-boop") ? "#00F0FF" : "#3A3A4A",
-                background: checked.has("nose-boop") ? "#00F0FF20" : "transparent",
-              }}
-            >
-              {checked.has("nose-boop") && <span className="text-[#00F0FF] text-xs">✓</span>}
-            </button>
-            <span className="text-2xl">👉</span>
-            <h2 className="font-display text-xl text-[#E8ECF0]">Pierrot&apos;s Nose Boop</h2>
-            <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: "#00F0FF", background: "#00F0FF15" }}>EASTER EGG</span>
-          </div>
-          <p className="text-sm text-[#C8CCD4] mb-4">
-            During a close-up of Pierrot&apos;s face, <strong>click his nose</strong>. A &quot;boop&quot; sound plays and Pierrot&apos;s expression changes to genuine surprise — one of the rare moments where his mask of composure cracks.
-          </p>
-          <div className="bg-[#0A0A12] rounded-lg p-4 font-mono text-xs text-[#8A8F98]">
-            <p className="text-[#00F0FF] mb-2">How to trigger:</p>
-            <p>Close-up scene → <span className="text-[#E8ECF0]">Click Pierrot&apos;s nose</span> → Boop sound + surprised expression</p>
-            <p className="mt-2 text-[#00F0FF]">Community favorite — easy to find but delightful</p>
-          </div>
-        </article>
-
-        {/* Scene 4: Photos */}
-        <article className="mb-8 p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-          <div className="flex items-center gap-3 mb-4">
-            <button
-              onClick={() => toggle("photos")}
-              className="w-6 h-6 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
-              style={{
-                borderColor: checked.has("photos") ? "#00F0FF" : "#3A3A4A",
-                background: checked.has("photos") ? "#00F0FF20" : "transparent",
-              }}
-            >
-              {checked.has("photos") && <span className="text-[#00F0FF] text-xs">✓</span>}
-            </button>
-            <span className="text-2xl">📸</span>
-            <h2 className="font-display text-xl text-[#E8ECF0]">Harlequin&apos;s Photo Obsession</h2>
-            <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: "#FF4F7F", background: "#FF4F7F15" }}>HIDDEN</span>
-          </div>
-          <p className="text-sm text-[#C8CCD4] mb-4">
-            Harlequin has taken <strong>over 200 photos of you</strong>. This detail is revealed through dialogue choices and background details that most players overlook. Pay attention to his phone screen during certain scenes.
-          </p>
-          <div className="bg-[#0A0A12] rounded-lg p-4 font-mono text-xs text-[#8A8F98]">
-            <p className="text-[#00F0FF] mb-2">Details:</p>
-            <p>Harlequin&apos;s phone shows a gallery of candid photos → The number &quot;200+&quot; appears in dialogue</p>
-            <p className="mt-2 text-[#FF4F7F]">His obsession is deeper than it first appears</p>
-          </div>
-        </article>
-
-        {/* Scene 5: Kiss */}
-        <article className="mb-8 p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-          <div className="flex items-center gap-3 mb-4">
-            <button
-              onClick={() => toggle("kiss")}
-              className="w-6 h-6 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
-              style={{
-                borderColor: checked.has("kiss") ? "#00F0FF" : "#3A3A4A",
-                background: checked.has("kiss") ? "#00F0FF20" : "transparent",
-              }}
-            >
-              {checked.has("kiss") && <span className="text-[#00F0FF] text-xs">✓</span>}
-            </button>
-            <span className="text-2xl">💋</span>
-            <h2 className="font-display text-xl text-[#E8ECF0]">The Player Can Kiss First</h2>
-            <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: "#00F0FF", background: "#00F0FF15" }}>SECRET</span>
-          </div>
-          <p className="text-sm text-[#C8CCD4] mb-4">
-            Unlike most Yandere VNs where the love interest initiates everything, in The Freak Circus <strong>the player can kiss first</strong>. This changes the dynamic significantly and unlocks unique dialogue.
-          </p>
-          <div className="bg-[#0A0A12] rounded-lg p-4 font-mono text-xs text-[#8A8F98]">
-            <p className="text-[#00F0FF] mb-2">Context:</p>
-            <p>Available during certain romance scenes → <span className="text-[#E8ECF0]">Choose the bold option</span> → Player-initiated kiss</p>
-            <p className="mt-2 text-[#00F0FF]">Subverts the typical yandere VN dynamic</p>
-          </div>
-        </article>
-
-        {/* Scene 6: Laugh */}
-        <article className="mb-8 p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-          <div className="flex items-center gap-3 mb-4">
-            <button
-              onClick={() => toggle("laugh")}
-              className="w-6 h-6 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
-              style={{
-                borderColor: checked.has("laugh") ? "#00F0FF" : "#3A3A4A",
-                background: checked.has("laugh") ? "#00F0FF20" : "transparent",
-              }}
-            >
-              {checked.has("laugh") && <span className="text-[#00F0FF] text-xs">✓</span>}
-            </button>
-            <span className="text-2xl">🤡</span>
-            <h2 className="font-display text-xl text-[#E8ECF0]">Harlequin&apos;s Real Laugh</h2>
-            <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: "#00F0FF", background: "#00F0FF15" }}>EASTER EGG</span>
-          </div>
-          <p className="text-sm text-[#C8CCD4] mb-4">
-            Harlequin&apos;s mask only shows a wide grin — but <strong>his real face has been shown once</strong>. Players who caught this detail noticed his genuine expression is very different from the mask he wears.
-          </p>
-        </article>
-
-        {/* Scene 7: Doctor */}
-        <article className="mb-8 p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-          <div className="flex items-center gap-3 mb-4">
-            <button
-              onClick={() => toggle("doctor-voice")}
-              className="w-6 h-6 rounded border-2 flex items-center justify-center shrink-0 transition-colors"
-              style={{
-                borderColor: checked.has("doctor-voice") ? "#00F0FF" : "#3A3A4A",
-                background: checked.has("doctor-voice") ? "#00F0FF20" : "transparent",
-              }}
-            >
-              {checked.has("doctor-voice") && <span className="text-[#00F0FF] text-xs">✓</span>}
-            </button>
-            <span className="text-2xl">🧛</span>
-            <h2 className="font-display text-xl text-[#E8ECF0]">The Doctor&apos;s Voice</h2>
-            <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded" style={{ color: "#FF4F7F", background: "#FF4F7F15" }}>DETAIL</span>
-          </div>
-          <p className="text-sm text-[#C8CCD4] mb-4">
-            The Doctor has a <strong>Dracula-like accent</strong> that&apos;s easy to miss if you&apos;re speed-reading. Fans are actively requesting a romance route for him. His character deepens significantly in Day 2 content.
-          </p>
-        </article>
-
-        <div className="mt-16 p-6 rounded-xl bg-[#12121A] border border-[#FF4F7F]/20">
-          <p className="text-sm text-[#C8CCD4]">
-            <strong className="text-[#FF4F7F]">⚠️ Spoiler Note:</strong> This page contains major spoilers for The Freak Circus. If you haven&apos;t played through the game at least once, we recommend doing a blind playthrough first.
-          </p>
-
         </div>
       </div>
     </main>

@@ -10,34 +10,34 @@ interface Tip {
 
 const staticTips = [
   {
-    title: "Explore Every Option",
+    title: "Save Often",
     content:
-      "Don't just follow one path. The game rewards exploration with hidden scenes, lore details, and alternate endings.",
+      "Ren'Py has a built-in save system. Use it before every choice so you can explore different branches without replaying from the start.",
   },
   {
-    title: "Watch the Background",
+    title: "Explore Every Option",
     content:
-      "The circus hides details in its artwork. Look for shadows, reflections, and background characters — they reveal things the dialogue doesn't.",
+      "Don't just follow one path. The game rewards exploration with different scenes and character interactions.",
+  },
+  {
+    title: "Pay Attention to Details",
+    content:
+      "The circus hides information in its artwork and dialogue. Look carefully at backgrounds and read between the lines.",
+  },
+  {
+    title: "Play Blind First",
+    content:
+      "The Freak Circus is best experienced without spoilers on your first run. Save the guide for your second playthrough.",
   },
   {
     title: "Character Order Matters",
     content:
-      "Who you talk to first affects subsequent interactions. Try different orders across playthroughs to see how scenes change.",
+      "Who you interact with first can affect subsequent scenes. Try different orders across playthroughs.",
   },
   {
-    title: "The Mirror Trick",
+    title: "Check Back After Updates",
     content:
-      "Looking at the mirror in your dressing room before leaving triggers a hidden scene most players miss entirely.",
-  },
-  {
-    title: "Pierrot's Nose",
-    content:
-      "During Pierrot's close-up, clicking his nose triggers a special animation. It's easy to miss but a fun easter egg.",
-  },
-  {
-    title: "Harlequin's Photos",
-    content:
-      "He's taken over 200 photos of you. This detail comes up in dialogue and affects his route — pay attention when it does.",
+      "The game is still in prototype stage. New content, characters, and endings will be added in future versions.",
   },
 ];
 
@@ -70,8 +70,8 @@ export default function TipsPage() {
           Tips &amp; Tricks
         </h1>
         <p className="text-[#8A8F98] text-sm mb-10">
-          Essential tips and tricks for The Freak Circus. Save management,
-          character strategies, and hidden mechanics.
+          General tips for playing The Freak Circus. Save management,
+          exploration strategies, and advice for new players.
         </p>
 
         {/* API Tips */}
@@ -139,6 +139,15 @@ export default function TipsPage() {
             ))}
           </div>
         </section>
+
+        {/* Disclaimer */}
+        <div className="p-4 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+          <p className="text-xs text-[#8A8F98]">
+            <strong className="text-[#FFB84D]">Note:</strong> These tips are
+            based on the v0.2 prototype. Mechanics and content may change in
+            future updates.
+          </p>
+        </div>
       </div>
     </main>
   );

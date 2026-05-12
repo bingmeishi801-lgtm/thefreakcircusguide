@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Beginner's Guide — The Freak Circus Guide",
   description:
-    "Everything you need to know before playing The Freak Circus. Tips, mechanics, and things the game doesn't tell you.",
+    "Everything you need to know before playing The Freak Circus. Game info, mechanics, and tips for your first playthrough.",
   alternates: { canonical: "https://thefreakcircusguide.com/guide" },
 };
 
@@ -18,8 +18,8 @@ export default function GuidePage() {
           Beginner&apos;s Guide
         </h1>
         <p className="text-[#8A8F98] text-sm mb-10">
-          First time playing The Freak Circus? This guide covers everything the
-          game doesn&apos;t explicitly explain.
+          First time playing The Freak Circus? Here&apos;s what you need to
+          know.
         </p>
 
         {/* Before You Play */}
@@ -30,11 +30,12 @@ export default function GuidePage() {
           <div className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
             <ul className="space-y-3">
               {[
-                "The game is rated 18+ and contains themes of stalking, obsessive behavior, and violence.",
-                "It's a Ren'Py visual novel — click to advance text, right-click for menu.",
-                "Currently in Prototype stage — only Day 1 and Day 2 are available.",
-                "Available on PC (browser and download) — no mobile version.",
-                "Voice acting is partial — The Doctor and Harlequin have voices.",
+                "The game is rated 18+ and contains themes of stalking, obsessive behavior, violence, and more (see full content warnings on the itch.io page).",
+                "It's a Ren'Py visual novel — click to advance text, right-click for the menu.",
+                "Currently in Prototype stage (v0.2) — only Day 1 and Day 2 are available.",
+                "Available on PC, Mac, Linux, Android, and playable in browser on itch.io.",
+                "There is voice acting in the game (by Darthsuki), but it's partial.",
+                "The game features choices that affect affection levels with characters.",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#00F0FF] flex-shrink-0" />
@@ -55,23 +56,19 @@ export default function GuidePage() {
               {[
                 {
                   label: "Choice System",
-                  desc: "Most choices affect character affection and story direction.",
+                  desc: "Your choices affect character affection and story direction. The developer confirms choices affect affection levels.",
                 },
                 {
-                  label: "Timed Choices",
-                  desc: "Some decisions have a countdown timer — act fast or the game chooses for you.",
-                },
-                {
-                  label: "Affection Meter",
-                  desc: "Hidden mechanic — your choices build or break affection with each character.",
+                  label: "Affection System",
+                  desc: "Hidden mechanic — your choices build or break affection with each character. Red tickets are associated with Pierrot, green with Harlequin.",
                 },
                 {
                   label: "Save/Load",
-                  desc: "Use Ren'Py's built-in save system liberally.",
+                  desc: "Use Ren'Py's built-in save system liberally. Save before every choice so you can explore different branches.",
                 },
                 {
-                  label: "Text Speed",
-                  desc: "Can be adjusted in settings. Note: resets on restart — known bug.",
+                  label: "Day System",
+                  desc: "The game is structured in days. Day 1 and Day 2 are currently available. Day 3's script is reportedly written but not yet programmed.",
                 },
               ].map((item) => (
                 <div
@@ -88,21 +85,19 @@ export default function GuidePage() {
           </div>
         </section>
 
-        {/* Things the Game Doesn't Tell You */}
+        {/* Tips */}
         <section className="mb-12">
           <h2 className="font-display text-xl text-[#FFB84D] mb-4">
-            🔍 Things the Game Doesn&apos;t Tell You
+            💡 Tips for Your First Playthrough
           </h2>
           <div className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
             <ul className="space-y-3">
               {[
-                "Pierrot watches you even when he's not on screen — pay attention to background details.",
-                "Harlequin has taken 200+ photos of you before the game starts.",
-                "The bathroom scene: choosing NOT to take a shower triggers a hidden scene.",
-                "Clicking Pierrot's nose during his close-up triggers an easter egg.",
-                "The Doctor has a Dracula-like accent that deepens in Day 2.",
-                "Mr. Bird (the ringmaster's pet) appears in the lore but hasn't been fully introduced yet.",
-                "Save files don't transfer between versions — always start fresh after an update.",
+                "Play blind first — don't look up guides. The experience is best without spoilers.",
+                "Pick the character that naturally draws you in.",
+                "Save at every choice point so you can branch later.",
+                "Pay attention to dialogue and background details — the game hides information in plain sight.",
+                "After your first playthrough, check the Endings page for what you missed.",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#FFB84D] flex-shrink-0" />
@@ -113,27 +108,14 @@ export default function GuidePage() {
           </div>
         </section>
 
-        {/* Recommended First Playthrough */}
-        <section className="mb-12">
-          <h2 className="font-display text-xl text-[#00F0FF] mb-4">
-            🎮 Recommended First Playthrough
-          </h2>
-          <div className="p-6 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
-            <ul className="space-y-3">
-              {[
-                "Play blind first — don't look up guides.",
-                "Pick the character that naturally draws you in.",
-                "Save at every choice point so you can branch later.",
-                "After your first playthrough, check the Endings page for what you missed.",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#00F0FF] flex-shrink-0" />
-                  <span className="text-sm text-[#C8CCD4]">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        {/* Disclaimer */}
+        <div className="p-4 rounded-xl bg-[#12121A] border border-[#1E1E2A]">
+          <p className="text-xs text-[#8A8F98]">
+            <strong className="text-[#FFB84D]">Note:</strong> This guide is
+            based on the v0.2 prototype. Game mechanics and content may change in
+            future updates.
+          </p>
+        </div>
       </div>
     </main>
   );
