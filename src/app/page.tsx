@@ -5,7 +5,7 @@ import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { ScreenshotGallery } from "@/components/sections/ScreenshotGallery";
 import { TrustSection } from "@/components/sections/TrustSection";
 import { CTASection } from "@/components/sections/CTASection";
-import { SubscribeSection } from "@/components/sections/SubscribeSection";
+
 import { FAQSection } from "@/components/sections/FAQSection";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 
@@ -38,7 +38,6 @@ export default async function HomePage() {
       <ScreenshotGallery />
       <TrustSection />
       <CTASection />
-      <SubscribeSection />
       <FAQSection initialData={faq.length > 0 ? faq : undefined} />
     </>
   );
