@@ -1,9 +1,8 @@
-import { Lock, Play, RefreshCw, Heart } from "lucide-react";
+import { Lock, Play, Heart } from "lucide-react";
 
 const BADGES = [
   { icon: Lock, label: "No Signup" },
   { icon: Play, label: "Browser-Based" },
-  { icon: RefreshCw, label: "Updated for v0.2" },
   { icon: Heart, label: "Fan-Made" },
 ];
 

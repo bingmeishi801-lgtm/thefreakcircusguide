@@ -1,27 +1,13 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Gamepad2, Maximize2, Minimize2, TrendingUp } from "lucide-react";
-import { useProgress } from "@/lib/useProgress";
+import { Maximize2, Minimize2 } from "lucide-react";
 
 const HERO_BG = "/images/game/hero.png";
 
-interface SiteStats {
-  characters: number;
-  endings: number;
-}
-
 export function HeroSection() {
-  const [stats, setStats] = useState<SiteStats>({ characters: 0, endings: 0 });
   const [isFullscreen, setIsFullscreen] = useState(false);
   const gameContainerRef = useRef<HTMLDivElement>(null);
-  const { totalUnlocked, charactersVisited, ready } = useProgress();
 
-  useEffect(() => {
-    fetch("/api/stats")
-      .then((r) => r.json())
-      .then((data) => setStats(data as SiteStats))
-      .catch(() => {});
-  }, []);
 
   const toggleFullscreen = useCallback(() => {
     if (!gameContainerRef.current) return;
@@ -89,25 +75,7 @@ export function HeroSection() {
               <a href="#play" className="cta-cyan">Play The Freak Circus Now</a>
             </div>
 
-            {/* Personal progress summary */}
-            {ready && (totalUnlocked > 0 || charactersVisited > 0) && (
-              <div className="flex items-center gap-4 mb-6 p-3 bg-[#12121A] border border-[#1E1E2A] rounded-lg">
-                <TrendingUp size={16} style={{ color: "#00F0FF" }} />
-                <span className="font-mono text-xs text-[#8A8F98]">Your progress:</span>
-                <span className="font-mono text-sm text-[#E8ECF0]">
-                  {charactersVisited}/7 characters explored
-                </span>
-                <span className="text-[#1E1E2A]">·</span>
-                <span className="font-mono text-sm text-[#E8ECF0]">
-                  {totalUnlocked} ending{totalUnlocked !== 1 ? 's' : ''} unlocked
-                </span>
-              </div>
-            )}
-
-            <p className="font-body text-xs text-[#8A8F98] flex items-center gap-2">
-              <Gamepad2 size={14} style={{ color: "#00F0FF" }} />
-              Free &middot; No signup &middot; Updated for v0.2
-            </p>
+            <div />
           </div>
 
           {/* Right: Game Container */}
