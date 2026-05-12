@@ -6,8 +6,12 @@ export default function sitemap() {
 
   return [
     { url: baseUrl, lastModified: new Date() },
+    { url: `${baseUrl}/guide`, lastModified: new Date() },
     { url: `${baseUrl}/lore`, lastModified: new Date() },
     { url: `${baseUrl}/hidden-scenes`, lastModified: new Date() },
+    { url: `${baseUrl}/endings`, lastModified: new Date() },
+    { url: `${baseUrl}/timed-choices`, lastModified: new Date() },
+    { url: `${baseUrl}/tips`, lastModified: new Date() },
     { url: `${baseUrl}/bugs`, lastModified: new Date() },
     { url: `${baseUrl}/privacy-policy`, lastModified: new Date() },
     { url: `${baseUrl}/terms-of-service`, lastModified: new Date() },
